@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.5748172, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -177,7 +177,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 144507720}
-  m_LocalRotation: {x: -0.16753706, y: 0.008603154, z: 0.0014620685, w: 0.9858272}
+  m_LocalRotation: {x: -0.16754346, y: -0.000000018158355, z: -0.0000000032561909,
+    w: 0.98586476}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -305,7 +306,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 526379997}
-  m_LocalRotation: {x: -0.1337757, y: 0.008648093, z: 0.0011674433, w: 0.99097323}
+  m_LocalRotation: {x: -0.13378078, y: 8.5241474e-11, z: 6.314429e-10, w: 0.99101096}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -377,7 +378,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 650837105}
-  m_LocalRotation: {x: -0.16753706, y: 0.008603154, z: 0.0014620685, w: 0.9858272}
+  m_LocalRotation: {x: -0.16754347, y: -3.5830235e-11, z: -2.1081724e-10, w: 0.9858647}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -522,12 +523,12 @@ MonoBehaviour:
     m_Bias: 0
   m_RecenterToTargetHeading:
     m_enabled: 0
-    m_WaitTime: 1
-    m_RecenteringTime: 2
+    m_WaitTime: 0
+    m_RecenteringTime: 0.5
     m_LegacyHeadingDefinition: -1
     m_LegacyVelocityFilterStrength: -1
   m_XAxis:
-    Value: 1
+    Value: 0
     m_MaxSpeed: 300
     m_AccelTime: 0.1
     m_DecelTime: 0.1
@@ -633,12 +634,12 @@ MonoBehaviour:
     m_Bias: 0
   m_RecenterToTargetHeading:
     m_enabled: 0
-    m_WaitTime: 1
-    m_RecenteringTime: 2
+    m_WaitTime: 0
+    m_RecenteringTime: 0.5
     m_LegacyHeadingDefinition: -1
     m_LegacyVelocityFilterStrength: -1
   m_XAxis:
-    Value: 1
+    Value: 0
     m_MaxSpeed: 300
     m_AccelTime: 0.1
     m_DecelTime: 0.1
@@ -825,6 +826,7 @@ GameObject:
   - component: {fileID: 1957219060}
   - component: {fileID: 1957219059}
   - component: {fileID: 1957219063}
+  - component: {fileID: 1957219066}
   - component: {fileID: 1957219065}
   - component: {fileID: 1957219064}
   m_Layer: 0
@@ -929,6 +931,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a714e2713274734baa058103a4f14a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  forwardVelocity: 0.2
+  steeringVelocity: 2
+  state: 0
 --- !u!114 &1957219065
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -940,6 +945,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 021c91b69c1ed01479fb8b130c57b70e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  freeLook: {fileID: 2014746270}
+--- !u!114 &1957219066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1957219058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4dd2f484c115bf46bd358c1939cb87d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  state: {fileID: 11400000, guid: 4d92877cb55cc2b4c8a3d3d3f71ec7ef, type: 2}
 --- !u!1 &1993934276
 GameObject:
   m_ObjectHideFlags: 0
@@ -987,7 +1005,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: b00f45d828a293f48b14aaacbec86c3c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1022,7 +1040,7 @@ Transform:
   m_GameObject: {fileID: 1993934276}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 50, y: 50, z: 50}
+  m_LocalScale: {x: 100, y: 100, z: 100}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
@@ -1097,7 +1115,7 @@ MonoBehaviour:
     m_LegacyHeadingDefinition: -1
     m_LegacyVelocityFilterStrength: -1
   m_XAxis:
-    Value: 1
+    Value: 0
     m_MaxSpeed: 300
     m_AccelTime: 0.1
     m_DecelTime: 0.1
@@ -1113,8 +1131,8 @@ MonoBehaviour:
     m_Bias: 0
   m_RecenterToTargetHeading:
     m_enabled: 0
-    m_WaitTime: 1
-    m_RecenteringTime: 2
+    m_WaitTime: 0
+    m_RecenteringTime: 0.5
     m_LegacyHeadingDefinition: -1
     m_LegacyVelocityFilterStrength: -1
   m_BindingMode: 1
@@ -1138,7 +1156,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2014746269}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.06980963, y: 2.2, z: -3.9993908}
+  m_LocalPosition: {x: 0, y: 2.2, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 650837107}
@@ -1228,12 +1246,12 @@ MonoBehaviour:
     m_Bias: 0
   m_RecenterToTargetHeading:
     m_enabled: 0
-    m_WaitTime: 1
-    m_RecenteringTime: 2
+    m_WaitTime: 0
+    m_RecenteringTime: 0.5
     m_LegacyHeadingDefinition: -1
     m_LegacyVelocityFilterStrength: -1
   m_XAxis:
-    Value: 1
+    Value: 0
     m_MaxSpeed: 300
     m_AccelTime: 0.1
     m_DecelTime: 0.1
@@ -1369,8 +1387,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2085342877}
-  m_LocalRotation: {x: -0.16753708, y: 0.008603153, z: 0.0014620689, w: 0.98582715}
-  m_LocalPosition: {x: -0.06980963, y: 2.2, z: -3.9993908}
+  m_LocalRotation: {x: -0.16754349, y: -0.000000018128562, z: -0.0000000030808716,
+    w: 0.9858647}
+  m_LocalPosition: {x: 0, y: 2.2, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
