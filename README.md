@@ -4,6 +4,12 @@ You play as Hideki, a student who is locked inside one of the university buildin
 ![Logo](logo.jpg?raw=true "Logo")
 ## The Team
 
+### Eleazar Fernando Braga
+Developer
+
+### Yago Pessoa
+Developer
+
 ### Gustavo Ceccon
 Developer
 
