@@ -1,19 +1,30 @@
 fileFormatVersion: 2
-guid: 4c3d7ef4d220f8e469beb9fe8e354bda
+guid: c1e5c3bc7747b504fb8c04bd914fe5d4
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
-    100000: //RootNode
-    400000: //RootNode
-    2100000: Material_011
-    2100002: Material_005
-    2300000: //RootNode
-    3300000: //RootNode
-    4300000: Plane_010
-    4300002: Blackboard
+    100000: Handle
+    100002: HandleBase
+    100004: Window
+    100006: //RootNode
+    400000: Handle
+    400002: HandleBase
+    400004: Window
+    400006: //RootNode
+    2100000: Metal
+    2100002: Material_016
+    2100004: Material_015
+    2300000: Handle
+    2300002: HandleBase
+    2300004: Window
+    3300000: Handle
+    3300002: HandleBase
+    3300004: Window
+    4300000: Handle
+    4300002: HandleBase
+    4300004: Window
     7400000: Default Take
     9500000: //RootNode
-    2186277476908879412: ImportLogs
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -88,7 +99,7 @@ ModelImporter:
     rootMotionBoneName: 
     rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
-    hasExtraRoot: 0
+    hasExtraRoot: 1
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 0
