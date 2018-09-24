@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33507497465846124}
   - component: {fileID: 23103635777781302}
   - component: {fileID: 95538406447305690}
+  - component: {fileID: 65077894291148748}
   m_Layer: 0
   m_Name: DoorWood
   m_TagString: Untagged
@@ -87,6 +88,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1207581253141160}
   m_Mesh: {fileID: 4300002, guid: 267259fe7d52d04428ad23df26e2e7f3, type: 3}
+--- !u!65 &65077894291148748
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1207581253141160}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4, y: 0.4, z: 6.0000014}
+  m_Center: {x: -2, y: -0.00002300737, z: 3.0000007}
 --- !u!95 &95538406447305690
 Animator:
   serializedVersion: 3
