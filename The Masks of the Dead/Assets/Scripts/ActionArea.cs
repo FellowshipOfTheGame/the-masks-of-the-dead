@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class ActionArea : MonoBehaviour {
 
-    [Range(0.0f, 3.0f)] public float action_distance = 1.0f;
+    [Range(0.0f, 5.0f)] public float action_distance = 1.0f;
     GameObject outlined_object = null;
 
-    /*ESTÁ AQUI PARA TESTES E SERÁ REMOVIDO*/
-    public Material test_material;
-    Material previous_material;
-    /*ESTÁ AQUI PARA TESTES E SERÁ REMOVIDO*/
+    /*ESTï¿½ AQUI PARA TESTES E SERï¿½ REMOVIDO*/
+    // public Material test_material;
+    // Material previous_material;
+    /*ESTï¿½ AQUI PARA TESTES E SERï¿½ REMOVIDO*/
 
     void open()
     {
@@ -23,6 +23,7 @@ public class ActionArea : MonoBehaviour {
         //print(gameObject.transform.eulerAngles);
         if (Physics.Raycast(gameObject.transform.position, direction, out hit, action_distance))
         {
+            //Debug.Log(hit.transform.gameObject);
             object_gotten = hit.transform.gameObject;
 
             if(object_gotten.tag == "Door")
@@ -47,7 +48,7 @@ public class ActionArea : MonoBehaviour {
             open();
         }
 
-        Vector3 direction = Vector3.forward;
+        /* Vector3 direction = Vector3.forward;
         RaycastHit hit;
         if (Physics.Raycast(gameObject.transform.position, direction, out hit, action_distance))
         {
@@ -69,6 +70,6 @@ public class ActionArea : MonoBehaviour {
                 outlined_object.GetComponent<Renderer>().material = previous_material;
             }
             outlined_object = null;
-        }
+        } */
     }
 }
