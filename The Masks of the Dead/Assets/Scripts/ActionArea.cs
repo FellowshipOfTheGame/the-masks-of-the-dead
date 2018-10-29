@@ -1,11 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ActionArea : MonoBehaviour {
 
     [Range(0.0f, 5.0f)] public float action_distance = 1.0f;
     GameObject outlined_object = null;
+    //GameObject questText;
+
+    private bool startedQuest = false;
+    private int ropes=0, squeegees=0, tapes=0;
+
+    public Text questText;
 
     /*EST� AQUI PARA TESTES E SER� REMOVIDO*/
     // public Material test_material;
@@ -31,14 +38,34 @@ public class ActionArea : MonoBehaviour {
                 object_gotten.GetComponent<DoorScript>().opendoor();
             }else if(object_gotten.tag == "Item")
             {
-                Destroy(object_gotten);
+                if(startedQuest){
+                    if(object_gotten.name == "Rope" && ropes<5){
+                        ropes++;
+                        questText.text = "Colete os itens para consertar o harpão:\nCorda "+ropes+"/5\nFita "+tapes+"/5\nRodo "+squeegees+"/2";
+                        Destroy(object_gotten);
+                    }else if(object_gotten.name == "Squeegee" && squeegees<2){
+                        squeegees++;
+                        questText.text = "Colete os itens para consertar o harpão:\nCorda "+ropes+"/5\nFita "+tapes+"/5\nRodo "+squeegees+"/2";
+                        Destroy(object_gotten);
+                    }else if(object_gotten.name == "Tape" && tapes<5){
+                        tapes++;
+                        questText.text = "Colete os itens para consertar o harpão:\nCorda "+ropes+"/5\nFita "+tapes+"/5\nRodo "+squeegees+"/2";
+                        Destroy(object_gotten);
+                    }
+                }
+            }else if(object_gotten.tag == "Harpoon"){
+                if(!startedQuest){
+                    Debug.Log("Startou a quest!");
+                    startedQuest = true;
+                    questText.text = "Colete os itens para consertar o harpão:\nCorda 0/5\nFita 0/5\nRodo 0/2";
+                }
             }
         }
     }
 
 	// Use this for initialization
 	void Start () {
-		
+		//questText = transform.GetChild(1).gameObject.transform.GetChild(1).gameObject;
 	}
 	
 	// Update is called once per frame
