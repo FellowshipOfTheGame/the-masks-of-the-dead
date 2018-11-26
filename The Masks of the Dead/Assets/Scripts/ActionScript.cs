@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ActionArea : MonoBehaviour {
+public class ActionScript : MonoBehaviour {
 
-    [Range(0.0f, 5.0f)] public float action_distance = 1.0f;
-    GameObject outlined_object = null;
+    [Range(0.0f, 10.0f)] public float action_distance = 1.0f;
     //GameObject questText;
 
     private bool startedQuest = false;
@@ -14,10 +13,11 @@ public class ActionArea : MonoBehaviour {
 
     public Text questText;
 
-    /*EST� AQUI PARA TESTES E SER� REMOVIDO*/
-    // public Material test_material;
-    // Material previous_material;
-    /*EST� AQUI PARA TESTES E SER� REMOVIDO*/
+    GameObject icon;
+    Sprite icon_use;
+    Sprite icon_open;
+    Sprite icon_pick;
+    bool showing_icon = false;
 
     void open()
     {
@@ -65,38 +65,54 @@ public class ActionArea : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		//questText = transform.GetChild(1).gameObject.transform.GetChild(1).gameObject;
-	}
+        icon = GameObject.Find("Camera/Canvas/Action_Icon");
+        icon.SetActive(false);
+        icon_open = Resources.Load<Sprite>("Sprites/Press 'E' to Open");
+        icon_pick = Resources.Load<Sprite>( "Sprites/Press 'E' to Pick");
+        icon_use = Resources.Load<Sprite>("Sprites/Press 'E' to Use");
+        //questText = transform.GetChild(1).gameObject.transform.GetChild(1).gameObject;
+    }
 	
 	// Update is called once per frame
 	void Update () {
-		if(Input.GetButtonDown("Action"))
+
+        GameObject o_hit;//objeto acertado pelo RayCast;
+        Vector3 direction = Quaternion.Euler(gameObject.transform.eulerAngles) * Vector3.forward;//Direção do RayCast
+        RaycastHit hit;//RayCast hit
+
+        if (Input.GetButtonDown("Action"))
         {
             open();
         }
-
-        /* Vector3 direction = Vector3.forward;
-        RaycastHit hit;
+        
         if (Physics.Raycast(gameObject.transform.position, direction, out hit, action_distance))
         {
-            if(outlined_object != null)
+            if(!showing_icon)
             {
-                if(outlined_object.tag == "Item" || outlined_object.tag == "Door")
-                    outlined_object.GetComponent<Renderer>().material = previous_material;
+                icon.SetActive(true);
+                showing_icon = true;
             }
-            outlined_object = hit.transform.gameObject;
-            if (outlined_object.tag == "Item" || outlined_object.tag == "Door")
+
+            o_hit = hit.transform.gameObject;
+            if(o_hit.tag == "Door")
             {
-                previous_material = outlined_object.GetComponent<Renderer>().material;
-                outlined_object.GetComponent<Renderer>().material = test_material;
+                icon.GetComponent<Image>().sprite = icon_open;
+            }else if(o_hit.tag == "Item")
+            {
+                icon.GetComponent<Image>().sprite = icon_pick;
+            }else if(o_hit.tag == "Harpoon")
+            {
+                icon.GetComponent<Image>().sprite = icon_use;
+            }else
+            {
+                icon.SetActive(false);
+                showing_icon = false;
             }
-        }else
+        }
+        else if(showing_icon)
         {
-            if(outlined_object != null && (outlined_object.tag == "Item" || outlined_object.tag == "Door"))
-            {
-                outlined_object.GetComponent<Renderer>().material = previous_material;
-            }
-            outlined_object = null;
-        } */
+            icon.SetActive(false);
+            showing_icon = false;
+        }
     }
 }

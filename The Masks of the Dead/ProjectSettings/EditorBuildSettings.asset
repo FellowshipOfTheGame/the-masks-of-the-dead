@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Map/Game 5.unity
     guid: b7ab59cade0ebe248a1318c6618c30c6
+  - enabled: 1
+    path: Assets/Map/Game 3 - Cenario.unity
+    guid: 26f3f9950e0e66f4784266385830db01
   m_configObjects: {}
