@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Cinemachine
+  - Door
+  - Item
+  - Harpoon
   layers:
   - Default
   - TransparentFX

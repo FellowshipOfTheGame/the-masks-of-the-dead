@@ -23,9 +23,10 @@ GameObject:
   - component: {fileID: 23103635777781302}
   - component: {fileID: 95538406447305690}
   - component: {fileID: 65077894291148748}
+  - component: {fileID: 114535408908100512}
   m_Layer: 0
   m_Name: DoorWood
-  m_TagString: Untagged
+  m_TagString: Door
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -118,3 +119,17 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114535408908100512
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1207581253141160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05ec0fb509fe6a84a897cc8857a1b94e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  door_speed: 200
+  max_rotation: 120
+  isopenned: 0
