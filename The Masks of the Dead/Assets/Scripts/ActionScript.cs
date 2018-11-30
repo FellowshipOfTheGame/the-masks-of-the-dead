@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class ActionScript : MonoBehaviour {
 
@@ -13,13 +14,16 @@ public class ActionScript : MonoBehaviour {
 
     public Text questText;
 
+    public string next_scene;
+
     GameObject icon;
     Sprite icon_use;
     Sprite icon_open;
     Sprite icon_pick;
     bool showing_icon = false;
+    bool quest_completed = false;
 
-    void open()
+    void Action()
     {
         Vector3 direction = Vector3.forward;
         GameObject object_gotten;
@@ -43,17 +47,37 @@ public class ActionScript : MonoBehaviour {
                         ropes++;
                         questText.text = "Colete os itens para consertar o harpão:\nCorda "+ropes+"/5\nFita "+tapes+"/5\nRodo "+squeegees+"/2";
                         Destroy(object_gotten);
+                        if (Verify_quest(ropes, tapes, squeegees))
+                        {
+                            quest_completed = true;
+                            questText.text = "Use esses itens para consertar o arpão e fugir!";
+                        }
                     }else if(object_gotten.name == "Squeegee" && squeegees<2){
                         squeegees++;
                         questText.text = "Colete os itens para consertar o harpão:\nCorda "+ropes+"/5\nFita "+tapes+"/5\nRodo "+squeegees+"/2";
                         Destroy(object_gotten);
-                    }else if(object_gotten.name == "Tape" && tapes<5){
+                        if (Verify_quest(ropes, tapes, squeegees))
+                        {
+                            quest_completed = true;
+                            questText.text = "Use esses itens para consertar o arpão e fugir!";
+                        }
+                    }
+                    else if(object_gotten.name == "Tape" && tapes<5){
                         tapes++;
                         questText.text = "Colete os itens para consertar o harpão:\nCorda "+ropes+"/5\nFita "+tapes+"/5\nRodo "+squeegees+"/2";
                         Destroy(object_gotten);
+                        if (Verify_quest(ropes, tapes, squeegees))
+                        {
+                            quest_completed = true;
+                            questText.text = "Use esses itens para consertar o arpão e fugir!";
+                        }
                     }
                 }
             }else if(object_gotten.tag == "Harpoon"){
+                if(quest_completed)
+                {
+                    SceneManager.LoadScene(next_scene, LoadSceneMode.Single);
+                }
                 if(!startedQuest){
                     Debug.Log("Startou a quest!");
                     startedQuest = true;
@@ -82,7 +106,7 @@ public class ActionScript : MonoBehaviour {
 
         if (Input.GetButtonDown("Action"))
         {
-            open();
+            Action();
         }
         
         if (Physics.Raycast(gameObject.transform.position, direction, out hit, action_distance))
@@ -113,6 +137,17 @@ public class ActionScript : MonoBehaviour {
         {
             icon.SetActive(false);
             showing_icon = false;
+        }
+    }
+
+    bool Verify_quest(int ropes, int tapes, int squeegees)
+    {
+        if(ropes == 5 && tapes == 5 && squeegees == 2)
+        {
+            return true;
+        }else
+        {
+            return false;
         }
     }
 }

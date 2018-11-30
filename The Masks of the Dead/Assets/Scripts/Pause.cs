@@ -12,6 +12,8 @@ public class Pause : MonoBehaviour {
 
     private void Resume()
     {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         pause_ui.SetActive(false);
         ispaused = false;
         Time.timeScale = 1;
@@ -20,6 +22,8 @@ public class Pause : MonoBehaviour {
 
     private void Start()
     {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         actionscript = GameObject.Find("Camera").GetComponent<ActionScript>();
         pause_ui = GameObject.Find("Camera/Canvas/Pause");
         GameObject.Find("Camera/Canvas/Pause/Buttons/Resume").GetComponent<Button>().onClick.AddListener(Resume);
@@ -34,12 +38,16 @@ public class Pause : MonoBehaviour {
         {
             if(ispaused)
             {
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
                 pause_ui.SetActive(false);
                 ispaused = false;
                 Time.timeScale = 1;
                 actionscript.enabled = true;
             }else
             {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
                 pause_ui.SetActive(true);
                 ispaused = true;
                 Time.timeScale = 0;
