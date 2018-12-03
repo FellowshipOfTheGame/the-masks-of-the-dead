@@ -16,6 +16,14 @@ public class Zombie : MonoBehaviour {
 	public Material yellow;
 	public Material red;
 
+    public Vector3[] destination;
+    Vector3 starting_location;//Onde o zumbi inicia.
+    Vector3 destiny;//O próximo destino do zumbi.
+    int i = 0;//Posição do destino no vetor direction
+    Vector3 direction;//Direção que o zumbi anda para chegar no destino.
+    [Tooltip("Os pontos para os quais os zumbis vão andar, na ordem que são colocados. (após o último, ele retorna à posição inicial.")]
+    [Range(0.0f, 1.0f)] public float speed;
+
 	private GameObject body;
 	private string state;
 
@@ -27,6 +35,14 @@ public class Zombie : MonoBehaviour {
 		body = transform.GetChild(0).gameObject;
 		body.GetComponent<Renderer>().material = green;
 		state = "green";
+        if (destination.Length != 0)
+        {
+            destiny = destination[0];
+            starting_location = gameObject.transform.position;
+            direction = destiny - starting_location;
+            direction = direction.normalized;
+            i++;
+        }
 	}
 	
 	// Update is called once per frame
@@ -42,6 +58,26 @@ public class Zombie : MonoBehaviour {
 				isDead = false;
 			}
 		}
+        
+        //movimentação do zombie
+        if(destination.Length != 0)
+        {
+            gameObject.transform.Translate(direction * speed * Time.deltaTime);
+            if((gameObject.transform.position - destiny).sqrMagnitude <= (direction * speed * Time.deltaTime).sqrMagnitude)
+            {
+                gameObject.transform.position = destiny;
+                if(i < destination.Length)
+                {
+                    destiny = destination[i];
+                    i++;
+                }else
+                {
+                    i = 0;
+                    destiny = starting_location;
+                }
+                direction = destiny - gameObject.transform.position;
+            }
+        }
 	}
 
 	void howNear(){
