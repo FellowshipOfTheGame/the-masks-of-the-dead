@@ -121,7 +121,7 @@ public class ActionScript : MonoBehaviour {
             if(o_hit.tag == "Door")
             {
                 icon.GetComponent<Image>().sprite = icon_open;
-            }else if(o_hit.tag == "Item")
+            }else if(o_hit.tag == "Item" && startedQuest)
             {
                 icon.GetComponent<Image>().sprite = icon_pick;
             }else if(o_hit.tag == "Harpoon")
