@@ -16,13 +16,17 @@ public class Zombie : MonoBehaviour {
 	public Material yellow;
 	public Material red;
 
+    [Tooltip("Os pontos para os quais os zumbis vao andar, na ordem que sao colocados. (apos o ultimo, ele retorna a posicao inicial.")]
     public Vector3[] destination;
+    [Tooltip("O tempo que o zumbi fica parado em cada ponto de destino (deve ter um tempo para cada ponto)")]
+    public int[] waiting_time;
+    bool is_waiting = true;
+    float time_waiting = 0.0f;
     Vector3 starting_location;//Onde o zumbi inicia.
     Vector3 destiny;//O próximo destino do zumbi.
     int i = 0;//Posição do destino no vetor direction
     Vector3 direction;//Direção que o zumbi anda para chegar no destino.
-    [Tooltip("Os pontos para os quais os zumbis vão andar, na ordem que são colocados. (após o último, ele retorna à posição inicial.")]
-    [Range(0.0f, 1.0f)] public float speed;
+    [Range(0.0f, 10.0f)] public float speed;
 
 	private GameObject body;
 	private string state;
@@ -35,14 +39,7 @@ public class Zombie : MonoBehaviour {
 		body = transform.GetChild(0).gameObject;
 		body.GetComponent<Renderer>().material = green;
 		state = "green";
-        if (destination.Length != 0)
-        {
-            destiny = destination[0];
-            starting_location = gameObject.transform.position;
-            direction = destiny - starting_location;
-            direction = direction.normalized;
-            i++;
-        }
+        starting_location = gameObject.transform.position;
 	}
 	
 	// Update is called once per frame
@@ -62,23 +59,55 @@ public class Zombie : MonoBehaviour {
         //movimentação do zombie
         if(destination.Length != 0)
         {
-            gameObject.transform.Translate(direction * speed * Time.deltaTime);
-            if((gameObject.transform.position - destiny).sqrMagnitude <= (direction * speed * Time.deltaTime).sqrMagnitude)
+            if (is_waiting)
             {
-                gameObject.transform.position = destiny;
-                if(i < destination.Length)
+                wait(i);
+                if(!is_waiting)
                 {
-                    destiny = destination[i];
-                    i++;
-                }else
-                {
-                    i = 0;
-                    destiny = starting_location;
+                    if(i < destination.Length)
+                    {
+                        destiny = destination[i];
+                        i++;
+                    }
+                    else
+                    {
+                        i = 0;
+                        destiny = starting_location;
+                    }
+                    time_waiting = 0;
+                    direction = (destiny - gameObject.transform.position).normalized;
                 }
-                direction = destiny - gameObject.transform.position;
+            }else
+            {
+                gameObject.transform.Translate(direction * speed * Time.deltaTime);
+                if ((gameObject.transform.position - destiny).sqrMagnitude <= (direction * speed * Time.deltaTime).sqrMagnitude)
+                {
+
+                    gameObject.transform.position = destiny;
+                    is_waiting = true;
+                    /*if(i < destination.Length)
+                    {
+                        destiny = destination[i];
+                        i++;
+                    }else
+                    {
+                        i = 0;
+                        destiny = starting_location;
+                    }
+                    direction = destiny - gameObject.transform.position;*/
+                }
             }
         }
 	}
+
+    void wait(int i)
+    {
+        time_waiting += Time.deltaTime;
+        if(time_waiting >= waiting_time[i])
+        {
+            is_waiting = false;
+        }
+    }
 
 	void howNear(){
         Vector3 playerPos = player.transform.position;
