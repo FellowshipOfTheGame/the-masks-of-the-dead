@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571328, b: 0.3069217, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -779,7 +779,8 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "Muito obrigado por jogar!\n\nThiago Daniel(Programador)\nYago Pessoa(Programador)\nGiuliano
-    Louren\xE7on(Modelador)\nJorge Halker(Modelador)\nWilliam Braz(Game Designer)\n"
+    Louren\xE7on(Modelador)\nJorge Halker(Modelador)\nEleazar(Modelador)\nWilliam
+    Braz(Game Designer)\n"
 --- !u!222 &1410052908
 CanvasRenderer:
   m_ObjectHideFlags: 0
