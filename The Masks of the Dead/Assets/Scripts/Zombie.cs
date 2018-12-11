@@ -49,8 +49,10 @@ public class Zombie : MonoBehaviour {
 		if(isDead){
 			if(Input.GetKeyDown(KeyCode.Return)){
 				player.transform.SetPositionAndRotation(new Vector3(3.4f, 0f, -8.35f), Quaternion.Euler(new Vector3(0,90,0)));
-				camera.GetComponent<Camera>().enabled = true;
-				cameraDead.GetComponent<Camera>().enabled = false;
+                camera.SetActive(true);
+                cameraDead.SetActive(false);
+				/*camera.GetComponent<Camera>().enabled = true;
+				cameraDead.GetComponent<Camera>().enabled = false;*/
 				cameraDead.transform.position = new Vector3(-10, 7, 10);
 				isDead = false;
 			}
@@ -130,9 +132,11 @@ public class Zombie : MonoBehaviour {
 
 	void respawn(){
 		cameraDead.transform.position = new Vector3(player.transform.position.x, cameraDead.transform.position.y, player.transform.position.z);
-       
+        cameraDead.SetActive(true);
+        camera.SetActive(false);
+        /*
         cameraDead.GetComponent<Camera>().enabled = true;
-		camera.GetComponent<Camera>().enabled = false;
+		camera.GetComponent<Camera>().enabled = false;*/
 		player.transform.SetPositionAndRotation(new Vector3(-27f, 0f, -8.35f), Quaternion.Euler(new Vector3(0,90,0)));
 		isDead = true;
 	}
