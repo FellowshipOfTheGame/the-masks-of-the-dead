@@ -10,6 +10,11 @@ public class Pause : MonoBehaviour {
     GameObject pause_ui;
     ActionScript actionscript;
 
+    private void Exit()
+    {
+        Application.Quit();
+    }
+
     private void Resume()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -27,8 +32,7 @@ public class Pause : MonoBehaviour {
         actionscript = GameObject.Find("Camera").GetComponent<ActionScript>();
         pause_ui = GameObject.Find("Camera/Canvas/Pause");
         GameObject.Find("Camera/Canvas/Pause/Buttons/Resume").GetComponent<Button>().onClick.AddListener(Resume);
-        GameObject.Find("Camera/Canvas/Pause/Buttons/Options").GetComponent<Button>().onClick.AddListener(Resume);
-        GameObject.Find("Camera/Canvas/Pause/Buttons/Exit").GetComponent<Button>().onClick.AddListener(Resume);
+        GameObject.Find("Camera/Canvas/Pause/Buttons/Exit").GetComponent<Button>().onClick.AddListener(Exit);
         pause_ui.SetActive(false);
     }
 
