@@ -7,7 +7,7 @@ public class DoorScript : MonoBehaviour {
     [Range(0.0f, 500.0f)] public float door_speed;//Velocidade que a porta abre.
     [Range(0.0f, 180.0f)] public float max_rotation;//O quando que a porta roda ao abrir.
     public int isopenned = 0; //Se 0, está fechada, se 1, está aberta para o sentido anti-horário, se -1, para o sentido horário.
-    int opening = 0; //Se 0, a porta está parada, se 1, está girando no sentido anti-horário, se -1, sentido horário e se 2, está fechando.
+    public int opening = 0; //Se 0, a porta está parada, se 1, está girando no sentido anti-horário, se -1, sentido horário e se 2, está fechando.
     float total_rotation = 0.0f;//O total que rodou durante a animação.
 
     Vector3 starting_rotation;//Rotação em Eulers

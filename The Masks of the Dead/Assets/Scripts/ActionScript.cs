@@ -19,6 +19,7 @@ public class ActionScript : MonoBehaviour {
     GameObject icon;
     Sprite icon_use;
     Sprite icon_open;
+    Sprite icon_close;
     Sprite icon_pick;
     bool showing_icon = false;
     bool quest_completed = false;
@@ -92,6 +93,7 @@ public class ActionScript : MonoBehaviour {
         icon = GameObject.Find("Camera/Canvas/Action_Icon");
         icon.SetActive(false);
         icon_open = Resources.Load<Sprite>("Sprites/Press 'E' to Open");
+        icon_close = Resources.Load<Sprite>("Sprites/Press 'E' to Close");
         icon_pick = Resources.Load<Sprite>( "Sprites/Press 'E' to Pick");
         icon_use = Resources.Load<Sprite>("Sprites/Press 'E' to Use");
         //questText = transform.GetChild(1).gameObject.transform.GetChild(1).gameObject;
@@ -103,6 +105,7 @@ public class ActionScript : MonoBehaviour {
         GameObject o_hit;//objeto acertado pelo RayCast;
         Vector3 direction = Quaternion.Euler(gameObject.transform.eulerAngles) * Vector3.forward;//Direção do RayCast
         RaycastHit hit;//RayCast hit
+        DoorScript door_script;//Variável que armazena o script de uma porta, se o player mirar para alguma.
 
         if (Input.GetButtonDown("Action"))
         {
@@ -120,8 +123,20 @@ public class ActionScript : MonoBehaviour {
             o_hit = hit.transform.gameObject;
             if(o_hit.tag == "Door")
             {
-                icon.GetComponent<Image>().sprite = icon_open;
-            }else if(o_hit.tag == "Item")
+                door_script = o_hit.transform.gameObject.GetComponent<DoorScript>();
+                if(door_script.isopenned == 1)
+                {
+                     icon.GetComponent<Image>().sprite = icon_close;
+                }else
+                {
+                    icon.GetComponent<Image>().sprite = icon_open;
+                }
+                if(door_script.opening != 0)
+                {
+                    icon.SetActive(false);
+                    showing_icon = false;
+                }
+            }else if(o_hit.tag == "Item" && startedQuest)
             {
                 icon.GetComponent<Image>().sprite = icon_pick;
             }else if(o_hit.tag == "Harpoon")
