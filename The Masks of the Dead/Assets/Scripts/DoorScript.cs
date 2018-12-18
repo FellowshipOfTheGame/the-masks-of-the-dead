@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Collections;
 
 public class DoorScript : MonoBehaviour {
 
@@ -15,12 +16,18 @@ public class DoorScript : MonoBehaviour {
     GameObject player;
     Vector3 door_rotation;//Vetor que inicia na origem e aponta para a ponta da porta.
 
+    public AudioClip openDoorSound;
+    public AudioClip closeDoorSound;
+    private AudioSource audioSource;
+
     private void Start()
     {
         starting_rotation = gameObject.transform.eulerAngles;
         player = GameObject.FindGameObjectWithTag("Player");
 
         door_rotation = Quaternion.Euler(0, gameObject.transform.eulerAngles.y, 0) * (-Vector3.right);
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -41,11 +48,13 @@ public class DoorScript : MonoBehaviour {
 
         if (isopenned != 0)
         {
+            audioSource.PlayOneShot(closeDoorSound, 1.0f);
             open_rotation = gameObject.transform.eulerAngles;
             opening = 2;
         }
         else
         {
+            audioSource.PlayOneShot(openDoorSound, 1.0f);
             if (y_result >= 0)
             {
                 opening = 1;
