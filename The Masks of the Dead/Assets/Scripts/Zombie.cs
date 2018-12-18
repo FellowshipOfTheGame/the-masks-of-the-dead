@@ -33,6 +33,9 @@ public class Zombie : MonoBehaviour {
 
 	public bool isDead = false;
 
+    public AudioClip grunhido;
+    private AudioSource audioSource;
+
 	// Use this for initialization
 	void Start () {
 		Cursor.visible = false;
@@ -40,10 +43,25 @@ public class Zombie : MonoBehaviour {
 		body.GetComponent<Renderer>().material = green;
 		state = "green";
         starting_location = gameObject.transform.position;
+        audioSource = GetComponent<AudioSource>();
     }
 	
 	// Update is called once per frame
 	void Update () {
+        if(state == "yellow")
+        {
+            if(!audioSource.isPlaying)
+            {
+                audioSource.Play();
+            }
+        }else
+        {
+            if(audioSource.isPlaying)
+            {
+                audioSource.Stop();
+            }
+        }
+
 		howNear();
 
 		if(isDead){
