@@ -1,0 +1,103 @@
+fileFormatVersion: 2
+guid: 9dff961c3cdf98d44bf44bed9d80ef3c
+ScriptedImporter:
+  fileIDToRecycleName:
+    100002: Blue Metal/Blue Metal
+    400002: Blue Metal/Blue Metal/Transform
+    2100000: mat.Color_Metal
+    2300002: Blue Metal/Blue Metal/MeshRenderer
+    2800000: Color_Metal_baseColor
+    2800002: Color_Metal_normal
+    2800004: Color_Metal_metallic
+    2800006: Color_Metal_height
+    2800008: Color_Metal_ambientOcclusion
+    3300002: Blue Metal/Blue Metal/MeshFilter
+    11400000: sbsar
+    11400002: graph0
+    13500002: Blue Metal/Blue Metal/SphereCollider
+    100100002: Blue Metal
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 232528478, guid: 43a8bbf65be290d44ba52b94476242b9, type: 3}
+  version: 13
+  mGraphInstanceData:
+  - graphLabel: Color_Metal
+    prototypeName: Color_Metal
+    graphDescIndex: 0
+    generateAllOutputs: 0
+    generateMipMaps: 1
+    preset: " <sbspreset pkgurl=\"pkg://Color_Metal\" label=\"\" >\n  <presetinput
+      identifier=\"color\" uid=\"1114918174\" type=\"3\" value=\"0.745105,0.885976,0.981132,1\"
+      />\n  <presetinput identifier=\"blur\" uid=\"1114982673\" type=\"0\" value=\"0.4\"
+      />\n </sbspreset>\n"
+    shaderName: Standard
+    outputNames: baseColor,normal,metallic,height,ambientOcclusion
+    texturePackingList:
+    - outputName: baseColor
+      alphaSource: baseColor
+    - outputName: normal
+      alphaSource: normal
+    - outputName: roughness
+      alphaSource: roughness
+    - outputName: metallic
+      alphaSource: smoothness
+    - outputName: height
+      alphaSource: height
+    - outputName: ambientOcclusion
+      alphaSource: ambientOcclusion
+    textureParameters:
+    - textureName: Color_Metal_roughness
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Color_Metal_baseColor
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Color_Metal_normal
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Color_Metal_metallic
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Color_Metal_height
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Color_Metal_ambientOcclusion
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    colorSpaceList:
+    - outputName: baseColor
+      bLinear: 0
+    - outputName: normal
+      bLinear: 1
+    - outputName: roughness
+      bLinear: 1
+    - outputName: metallic
+      bLinear: 1
+    - outputName: height
+      bLinear: 1
+    - outputName: ambientOcclusion
+      bLinear: 1
+    inputTextureMap: []
+    targetSettingList:
+    - label: 
+      bLockRatio: 1
+      bHighQuality: 0
+      textureWidth: 0
+      textureHeight: 0
+      textureFormat: 0
+      bGenerateOnLoad: 1
+    material: {fileID: 2100000, guid: 9dff961c3cdf98d44bf44bed9d80ef3c, type: 3}
+    generatedTextures:
+    - {fileID: 2800000, guid: 9dff961c3cdf98d44bf44bed9d80ef3c, type: 3}
+    - {fileID: 2800002, guid: 9dff961c3cdf98d44bf44bed9d80ef3c, type: 3}
+    - {fileID: 2800004, guid: 9dff961c3cdf98d44bf44bed9d80ef3c, type: 3}
+    - {fileID: 2800006, guid: 9dff961c3cdf98d44bf44bed9d80ef3c, type: 3}
+    - {fileID: 2800008, guid: 9dff961c3cdf98d44bf44bed9d80ef3c, type: 3}
