@@ -8,9 +8,14 @@ public class Zombie : MonoBehaviour {
 	public GameObject player;
 	public GameObject camera;
 	public GameObject cameraDead;
-	
-	public float lowerDist = 1f;
-	public float biggerDist = 3f;
+
+    public float cLowerDist = 1.4f;
+    public float cBiggerDist = 1.8f;
+    public float sLowerDist = 1.6f;
+    public float sBiggerDist = 2.5f;
+
+	private float lowerDist;
+	private float biggerDist;
 
 	public Material green;
 	public Material yellow;
@@ -48,6 +53,16 @@ public class Zombie : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        if(player.GetComponent<ThirdPersonCharacter>().m_Crouching)
+        {
+            lowerDist = cLowerDist;
+            biggerDist = cBiggerDist;
+        }else
+        {
+            lowerDist = sLowerDist;
+            biggerDist = sBiggerDist;
+        }
+
         if(state == "yellow")
         {
             if(!audioSource.isPlaying)
@@ -133,7 +148,7 @@ public class Zombie : MonoBehaviour {
 				respawn();
 				//Debug.Log("dead");
 			}
-        } else if(dist < biggerDist && !player.GetComponent<ThirdPersonCharacter>().m_Crouching){
+        } else if(dist < biggerDist){
 			if(state != "yellow"){
 				body.GetComponent<Renderer>().material = yellow;
 				state = "yellow";
