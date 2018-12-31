@@ -39,6 +39,8 @@ public class Zombie : MonoBehaviour {
 	public bool isDead = false;
 
     public AudioClip grunhido;
+    public float maxVolume = 1.0f;
+    public float changingSpeed = 1.0f;
     private AudioSource audioSource;
 
 	// Use this for initialization
@@ -53,6 +55,7 @@ public class Zombie : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        //Detecta que distancia será usada (em pé, ou agaichado)
         if(player.GetComponent<ThirdPersonCharacter>().m_Crouching)
         {
             lowerDist = cLowerDist;
@@ -63,17 +66,29 @@ public class Zombie : MonoBehaviour {
             biggerDist = sBiggerDist;
         }
 
+        //Ajusta o som do grunhido do zumbi.
         if(state == "yellow")
         {
             if(!audioSource.isPlaying)
             {
                 audioSource.Play();
             }
+            if(audioSource.volume < maxVolume)
+            {
+                audioSource.volume += changingSpeed * Time.deltaTime;
+            }
         }else
         {
             if(audioSource.isPlaying)
             {
-                audioSource.Stop();
+                if(audioSource.volume <= 0)
+                {
+                    audioSource.volume = 0;
+                    audioSource.Stop();
+                }else
+                {
+                    audioSource.volume -= changingSpeed * Time.deltaTime;
+                }
             }
         }
 
