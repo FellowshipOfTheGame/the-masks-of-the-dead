@@ -8,9 +8,14 @@ public class Zombie : MonoBehaviour {
 	public GameObject player;
 	public GameObject camera;
 	public GameObject cameraDead;
-	
-	public float lowerDist = 1f;
-	public float biggerDist = 3f;
+
+    public float cLowerDist = 1.4f;
+    public float cBiggerDist = 1.8f;
+    public float sLowerDist = 1.6f;
+    public float sBiggerDist = 2.5f;
+
+	private float lowerDist;
+	private float biggerDist;
 
 	public Material green;
 	public Material yellow;
@@ -33,17 +38,59 @@ public class Zombie : MonoBehaviour {
 
 	public bool isDead = false;
 
+    public AudioClip grunhido;
+    public float maxVolume = 1.0f;
+    public float changingSpeed = 1.0f;
+    private AudioSource audioSource;
+
 	// Use this for initialization
 	void Start () {
 		Cursor.visible = false;
 		body = transform.GetChild(0).gameObject;
-		body.GetComponent<Renderer>().material = green;
 		state = "green";
         starting_location = gameObject.transform.position;
+        audioSource = GetComponent<AudioSource>();
     }
 	
 	// Update is called once per frame
 	void Update () {
+        //Detecta que distancia será usada (em pé, ou agaichado)
+        if(player.GetComponent<ThirdPersonCharacter>().m_Crouching)
+        {
+            lowerDist = cLowerDist;
+            biggerDist = cBiggerDist;
+        }else
+        {
+            lowerDist = sLowerDist;
+            biggerDist = sBiggerDist;
+        }
+
+        //Ajusta o som do grunhido do zumbi.
+        if(state == "yellow")
+        {
+            if(!audioSource.isPlaying)
+            {
+                audioSource.Play();
+            }
+            if(audioSource.volume < maxVolume)
+            {
+                audioSource.volume += changingSpeed * Time.deltaTime;
+            }
+        }else
+        {
+            if(audioSource.isPlaying)
+            {
+                if(audioSource.volume <= 0)
+                {
+                    audioSource.volume = 0;
+                    audioSource.Stop();
+                }else
+                {
+                    audioSource.volume -= changingSpeed * Time.deltaTime;
+                }
+            }
+        }
+
 		howNear();
 
 		if(isDead){
@@ -110,20 +157,17 @@ public class Zombie : MonoBehaviour {
 
         if(dist < lowerDist){
             if(state != "red"){
-				body.GetComponent<Renderer>().material = red;
 				state = "red";
 				respawn();
 				//Debug.Log("dead");
 			}
-        } else if(dist < biggerDist && !player.GetComponent<ThirdPersonCharacter>().m_Crouching){
+        } else if(dist < biggerDist){
 			if(state != "yellow"){
-				body.GetComponent<Renderer>().material = yellow;
 				state = "yellow";
 				//Debug.Log("zombie is noticing the player");
 			}
 		} else {
 			if(state != "green"){
-				body.GetComponent<Renderer>().material = green;
 				state = "green";
 				//Debug.Log("not dead anymore");
 			}
