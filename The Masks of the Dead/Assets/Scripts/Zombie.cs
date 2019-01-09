@@ -47,7 +47,6 @@ public class Zombie : MonoBehaviour {
 	void Start () {
 		Cursor.visible = false;
 		body = transform.GetChild(0).gameObject;
-		body.GetComponent<Renderer>().material = green;
 		state = "green";
         starting_location = gameObject.transform.position;
         audioSource = GetComponent<AudioSource>();
@@ -158,20 +157,17 @@ public class Zombie : MonoBehaviour {
 
         if(dist < lowerDist){
             if(state != "red"){
-				body.GetComponent<Renderer>().material = red;
 				state = "red";
 				respawn();
 				//Debug.Log("dead");
 			}
         } else if(dist < biggerDist){
 			if(state != "yellow"){
-				body.GetComponent<Renderer>().material = yellow;
 				state = "yellow";
 				//Debug.Log("zombie is noticing the player");
 			}
 		} else {
 			if(state != "green"){
-				body.GetComponent<Renderer>().material = green;
 				state = "green";
 				//Debug.Log("not dead anymore");
 			}
