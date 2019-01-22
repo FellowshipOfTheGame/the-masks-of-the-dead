@@ -21,6 +21,8 @@ public class Zombie : MonoBehaviour {
 	public Material yellow;
 	public Material red;
 
+	[SerializeField] public Animator apaga;
+
     [Tooltip("Os pontos para os quais os zumbis vao andar, na ordem que sao colocados. (apos o ultimo, ele retorna a posicao inicial.")]
     public Vector3[] destination;
     [Tooltip("O tempo que o zumbi fica parado em cada ponto de destino (deve ter um tempo para cada ponto)")]
@@ -175,6 +177,21 @@ public class Zombie : MonoBehaviour {
     }
 
 	void respawn(){
+		FadeOut();
+		apaga.GetComponent<ApagaLuz>().zumbi = this.gameObject;
+	}
+
+	public void FadeOut(){
+		apaga.SetTrigger("FadeOut");
+	}
+
+	public void FadeIn(){
+		apaga.SetTrigger("FadeIn");
+	}
+
+	public void respawn2(){
+		print("Chegou");
+		FadeIn();
 		cameraDead.transform.position = new Vector3(player.transform.position.x, cameraDead.transform.position.y, player.transform.position.z);
         cameraDead.SetActive(true);
         camera.SetActive(false);
@@ -184,4 +201,5 @@ public class Zombie : MonoBehaviour {
 		player.transform.SetPositionAndRotation(new Vector3(-27f, 0f, -8.35f), Quaternion.Euler(new Vector3(0,90,0)));
 		isDead = true;
 	}
+
 }
