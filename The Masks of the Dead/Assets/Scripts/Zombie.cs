@@ -103,7 +103,10 @@ public class Zombie : MonoBehaviour {
 				/*camera.GetComponent<Camera>().enabled = true;
 				cameraDead.GetComponent<Camera>().enabled = false;*/
 				cameraDead.transform.position = new Vector3(-10, 7, 10);
+				player.GetComponent<Animator>().enabled = true;
 				isDead = false;
+
+				this.transform.GetChild (0).gameObject.SetActive(true);
 			}
 		}
         
@@ -113,8 +116,10 @@ public class Zombie : MonoBehaviour {
             if (is_waiting)
             {
                 wait(i);
+                //this.transform.GetChild (0).gameObject.GetComponent<Animator>().SetBool("Moving", false);
                 if(!is_waiting)
                 {
+
                     if(i < destination.Length)
                     {
                         destiny = destination[i];
@@ -130,6 +135,7 @@ public class Zombie : MonoBehaviour {
                 }
             }else
             {
+            	//this.transform.GetChild (0).gameObject.GetComponent<Animator>().SetBool("Moving", true);
                 gameObject.transform.Translate(direction * speed * Time.deltaTime);
                 if ((gameObject.transform.position - destiny).sqrMagnitude <= (direction * speed * Time.deltaTime).sqrMagnitude)
                 {
@@ -190,15 +196,14 @@ public class Zombie : MonoBehaviour {
 	}
 
 	public void respawn2(){
-		print("Chegou");
 		FadeIn();
+		this.transform.GetChild (0).gameObject.SetActive(false);
 		cameraDead.transform.position = new Vector3(player.transform.position.x, cameraDead.transform.position.y, player.transform.position.z);
         cameraDead.SetActive(true);
         camera.SetActive(false);
-        /*
-        cameraDead.GetComponent<Camera>().enabled = true;
-		camera.GetComponent<Camera>().enabled = false;*/
+       
 		player.transform.SetPositionAndRotation(new Vector3(-27f, 0f, -8.35f), Quaternion.Euler(new Vector3(0,90,0)));
+		player.GetComponent<Animator>().enabled = false;
 		isDead = true;
 	}
 
