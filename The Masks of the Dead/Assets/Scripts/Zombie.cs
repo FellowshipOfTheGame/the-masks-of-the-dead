@@ -99,6 +99,8 @@ public class Zombie : MonoBehaviour {
 			if(Input.GetKeyDown(KeyCode.Return)){
 				player.transform.SetPositionAndRotation(new Vector3(3.4f, 0f, -8.35f), Quaternion.Euler(new Vector3(0,90,0)));
                 camera.SetActive(true);
+                cameraDead.GetComponent<AudioListener>().enabled = false;
+        		camera.GetComponent<AudioListener>().enabled = true;
                 cameraDead.SetActive(false);
 				/*camera.GetComponent<Camera>().enabled = true;
 				cameraDead.GetComponent<Camera>().enabled = false;*/
@@ -107,6 +109,7 @@ public class Zombie : MonoBehaviour {
 				isDead = false;
 
 				this.transform.GetChild (0).gameObject.SetActive(true);
+				player.transform.GetChild (0).gameObject.GetComponent<AudioSource> ().pitch = 1.0f;
 			}
 		}
         
@@ -200,10 +203,13 @@ public class Zombie : MonoBehaviour {
 		this.transform.GetChild (0).gameObject.SetActive(false);
 		cameraDead.transform.position = new Vector3(player.transform.position.x, cameraDead.transform.position.y, player.transform.position.z);
         cameraDead.SetActive(true);
+        cameraDead.GetComponent<AudioListener>().enabled = true;
+        camera.GetComponent<AudioListener>().enabled = false;
         camera.SetActive(false);
        
 		player.transform.SetPositionAndRotation(new Vector3(-27f, 0f, -8.35f), Quaternion.Euler(new Vector3(0,90,0)));
 		player.GetComponent<Animator>().enabled = false;
+		player.transform.GetChild (0).gameObject.GetComponent<AudioSource> ().pitch = 0.75f;
 		isDead = true;
 	}
 

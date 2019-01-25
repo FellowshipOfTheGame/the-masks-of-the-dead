@@ -5,23 +5,24 @@ using UnityEngine;
 public class Zombie_Animation : MonoBehaviour {
 
     public float turning_speed = 100.0f;
+    public float animSpeed = 1.0f;
 
     private Vector3 previousPosition;
     private Vector3 currentPosition;
     private GameObject zombieModel;
     private Animator anim;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
         zombieModel = gameObject.transform.GetChild(0).gameObject;
 
         anim = zombieModel.GetComponent<Animator>();
     }
-	
-	// Update is called once per frame
-	void Update () {
+    
+    // Update is called once per frame
+    void Update () {
         Animate();
-	}
+    }
 
     private void Animate()
     {
@@ -31,9 +32,11 @@ public class Zombie_Animation : MonoBehaviour {
         {
             zombieModel.transform.rotation = Quaternion.LookRotation(direction);
             anim.SetBool("Moving", true);
+            anim.speed = animSpeed;
         }else
         {
             anim.SetBool("Moving", false);
+            anim.speed = 1.0f;
         }
         previousPosition = currentPosition;
     }
