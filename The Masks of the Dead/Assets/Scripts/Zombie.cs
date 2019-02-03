@@ -8,13 +8,20 @@ public class Zombie : MonoBehaviour {
 	public GameObject player;
 	public GameObject camera;
 	public GameObject cameraDead;
-	
-	public float lowerDist = 1f;
-	public float biggerDist = 3f;
+
+    public float cLowerDist = 1.4f;
+    public float cBiggerDist = 1.8f;
+    public float sLowerDist = 1.6f;
+    public float sBiggerDist = 2.5f;
+
+	private float lowerDist;
+	private float biggerDist;
 
 	public Material green;
 	public Material yellow;
 	public Material red;
+
+	[SerializeField] public Animator apaga;
 
     [Tooltip("Os pontos para os quais os zumbis vao andar, na ordem que sao colocados. (apos o ultimo, ele retorna a posicao inicial.")]
     public Vector3[] destination;
@@ -34,13 +41,14 @@ public class Zombie : MonoBehaviour {
 	public bool isDead = false;
 
     public AudioClip grunhido;
+    public float maxVolume = 1.0f;
+    public float changingSpeed = 1.0f;
     private AudioSource audioSource;
 
 	// Use this for initialization
 	void Start () {
 		Cursor.visible = false;
 		body = transform.GetChild(0).gameObject;
-		body.GetComponent<Renderer>().material = green;
 		state = "green";
         starting_location = gameObject.transform.position;
         audioSource = GetComponent<AudioSource>();
@@ -48,17 +56,40 @@ public class Zombie : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        //Detecta que distancia será usada (em pé, ou agaichado)
+        if(player.GetComponent<ThirdPersonCharacter>().m_Crouching)
+        {
+            lowerDist = cLowerDist;
+            biggerDist = cBiggerDist;
+        }else
+        {
+            lowerDist = sLowerDist;
+            biggerDist = sBiggerDist;
+        }
+
+        //Ajusta o som do grunhido do zumbi.
         if(state == "yellow")
         {
             if(!audioSource.isPlaying)
             {
                 audioSource.Play();
             }
+            if(audioSource.volume < maxVolume)
+            {
+                audioSource.volume += changingSpeed * Time.deltaTime;
+            }
         }else
         {
             if(audioSource.isPlaying)
             {
-                audioSource.Stop();
+                if(audioSource.volume <= 0)
+                {
+                    audioSource.volume = 0;
+                    audioSource.Stop();
+                }else
+                {
+                    audioSource.volume -= changingSpeed * Time.deltaTime;
+                }
             }
         }
 
@@ -68,11 +99,17 @@ public class Zombie : MonoBehaviour {
 			if(Input.GetKeyDown(KeyCode.Return)){
 				player.transform.SetPositionAndRotation(new Vector3(3.4f, 0f, -8.35f), Quaternion.Euler(new Vector3(0,90,0)));
                 camera.SetActive(true);
+                cameraDead.GetComponent<AudioListener>().enabled = false;
+        		camera.GetComponent<AudioListener>().enabled = true;
                 cameraDead.SetActive(false);
 				/*camera.GetComponent<Camera>().enabled = true;
 				cameraDead.GetComponent<Camera>().enabled = false;*/
 				cameraDead.transform.position = new Vector3(-10, 7, 10);
+				player.GetComponent<Animator>().enabled = true;
 				isDead = false;
+
+				this.transform.GetChild (0).gameObject.SetActive(true);
+				player.transform.GetChild (0).gameObject.GetComponent<AudioSource> ().pitch = 1.0f;
 			}
 		}
         
@@ -82,8 +119,10 @@ public class Zombie : MonoBehaviour {
             if (is_waiting)
             {
                 wait(i);
+                //this.transform.GetChild (0).gameObject.GetComponent<Animator>().SetBool("Moving", false);
                 if(!is_waiting)
                 {
+
                     if(i < destination.Length)
                     {
                         destiny = destination[i];
@@ -99,6 +138,7 @@ public class Zombie : MonoBehaviour {
                 }
             }else
             {
+            	//this.transform.GetChild (0).gameObject.GetComponent<Animator>().SetBool("Moving", true);
                 gameObject.transform.Translate(direction * speed * Time.deltaTime);
                 if ((gameObject.transform.position - destiny).sqrMagnitude <= (direction * speed * Time.deltaTime).sqrMagnitude)
                 {
@@ -128,20 +168,17 @@ public class Zombie : MonoBehaviour {
 
         if(dist < lowerDist){
             if(state != "red"){
-				body.GetComponent<Renderer>().material = red;
 				state = "red";
 				respawn();
 				//Debug.Log("dead");
 			}
-        } else if(dist < biggerDist && !player.GetComponent<ThirdPersonCharacter>().m_Crouching){
+        } else if(dist < biggerDist){
 			if(state != "yellow"){
-				body.GetComponent<Renderer>().material = yellow;
 				state = "yellow";
 				//Debug.Log("zombie is noticing the player");
 			}
 		} else {
 			if(state != "green"){
-				body.GetComponent<Renderer>().material = green;
 				state = "green";
 				//Debug.Log("not dead anymore");
 			}
@@ -149,13 +186,31 @@ public class Zombie : MonoBehaviour {
     }
 
 	void respawn(){
+		FadeOut();
+		apaga.GetComponent<ApagaLuz>().zumbi = this.gameObject;
+	}
+
+	public void FadeOut(){
+		apaga.SetTrigger("FadeOut");
+	}
+
+	public void FadeIn(){
+		apaga.SetTrigger("FadeIn");
+	}
+
+	public void respawn2(){
+		FadeIn();
+		this.transform.GetChild (0).gameObject.SetActive(false);
 		cameraDead.transform.position = new Vector3(player.transform.position.x, cameraDead.transform.position.y, player.transform.position.z);
         cameraDead.SetActive(true);
+        cameraDead.GetComponent<AudioListener>().enabled = true;
+        camera.GetComponent<AudioListener>().enabled = false;
         camera.SetActive(false);
-        /*
-        cameraDead.GetComponent<Camera>().enabled = true;
-		camera.GetComponent<Camera>().enabled = false;*/
+       
 		player.transform.SetPositionAndRotation(new Vector3(-27f, 0f, -8.35f), Quaternion.Euler(new Vector3(0,90,0)));
+		player.GetComponent<Animator>().enabled = false;
+		player.transform.GetChild (0).gameObject.GetComponent<AudioSource> ().pitch = 0.75f;
 		isDead = true;
 	}
+
 }
