@@ -1,0 +1,84 @@
+fileFormatVersion: 2
+guid: c666d563b5c54d749ba8e03c44f7156b
+ScriptedImporter:
+  fileIDToRecycleName:
+    100000: bloed/bloed
+    400000: bloed/bloed/Transform
+    2100000: mat.bloed
+    2300000: bloed/bloed/MeshRenderer
+    2800000: bloed_baseColor
+    2800002: bloed_normal
+    2800004: bloed_metallic
+    3300000: bloed/bloed/MeshFilter
+    11400000: sbsar
+    11400002: graph0
+    13500000: bloed/bloed/SphereCollider
+    100100000: bloed
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 232528478, guid: 43a8bbf65be290d44ba52b94476242b9, type: 3}
+  version: 13
+  mGraphInstanceData:
+  - graphLabel: bloed
+    prototypeName: bloed
+    graphDescIndex: 0
+    generateAllOutputs: 0
+    generateMipMaps: 1
+    preset: " <sbspreset pkgurl=\"pkg://bloed\" label=\"\" >\n  <presetinput identifier=\"$randomseed\"
+      uid=\"2983933037\" type=\"4\" value=\"5996\" />\n  <presetinput identifier=\"old\"
+      uid=\"2428868423\" type=\"0\" value=\"1\" />\n  <presetinput identifier=\"fresh\"
+      uid=\"2428865231\" type=\"0\" value=\"1\" />\n  <presetinput identifier=\"shine\"
+      uid=\"2428864645\" type=\"0\" value=\"1\" />\n </sbspreset>\n"
+    shaderName: Standard
+    outputNames: baseColor,normal,metallic
+    texturePackingList:
+    - outputName: baseColor
+      alphaSource: baseColor
+    - outputName: normal
+      alphaSource: normal
+    - outputName: roughness
+      alphaSource: roughness
+    - outputName: metallic
+      alphaSource: smoothness
+    textureParameters:
+    - textureName: bloed_roughness
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: bloed_baseColor
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: bloed_normal
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: bloed_metallic
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    colorSpaceList:
+    - outputName: baseColor
+      bLinear: 0
+    - outputName: normal
+      bLinear: 1
+    - outputName: roughness
+      bLinear: 1
+    - outputName: metallic
+      bLinear: 1
+    inputTextureMap: []
+    targetSettingList:
+    - label: 
+      bLockRatio: 1
+      bHighQuality: 0
+      textureWidth: 256
+      textureHeight: 256
+      textureFormat: 0
+      bGenerateOnLoad: 1
+    material: {fileID: 2100000, guid: c666d563b5c54d749ba8e03c44f7156b, type: 3}
+    generatedTextures:
+    - {fileID: 2800000, guid: c666d563b5c54d749ba8e03c44f7156b, type: 3}
+    - {fileID: 2800002, guid: c666d563b5c54d749ba8e03c44f7156b, type: 3}
+    - {fileID: 2800004, guid: c666d563b5c54d749ba8e03c44f7156b, type: 3}
