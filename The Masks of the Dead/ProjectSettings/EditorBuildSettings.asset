@@ -20,7 +20,13 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Map/Game 3 - Cenario.unity
     guid: 26f3f9950e0e66f4784266385830db01
-  - enabled: 1
+  - enabled: 0
     path: Assets/Map/Game 6 - Light.unity
     guid: 5dcc8e68e6a246d478018b9a40a59d52
+  - enabled: 1
+    path: Assets/Map/Game 8 - New Design.unity
+    guid: 3709d9c9a4c715540b89189c09bc5f8c
+  - enabled: 1
+    path: Assets/Map/Starting Story/Starting Story.unity
+    guid: 04f003ed0013c4540b312d69ddd551a3
   m_configObjects: {}
