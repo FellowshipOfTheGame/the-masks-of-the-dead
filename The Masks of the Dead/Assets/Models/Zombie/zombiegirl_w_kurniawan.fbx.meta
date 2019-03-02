@@ -137,7 +137,7 @@ ModelImporter:
     4300000: ZombieGirl_Body
     4300002: ZombieGirl_Pants
     4300004: ZombieGirl_Top
-    7400000: T
+    7400000: mixamo.com
     9500000: //RootNode
     13700000: ZombieGirl_Body
     13700002: ZombieGirl_Pants
@@ -147,22 +147,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: ZombieGirl_Material
-    second: {fileID: 2100000, guid: 53978f0d2285d274baae2d3ece7c3b1b, type: 2}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: zombie_diffuse
-    second: {fileID: 2800000, guid: 7354d440f563edf48ac4a8dd8a3f73f3, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: zombie_normal
-    second: {fileID: 2800000, guid: b9a2f0b2a933afa40858d66a606c5d60, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: zombie_specular
-    second: {fileID: 2800000, guid: 50caee7b6e0603a4ba53a857a0dc65e9, type: 3}
+    second: {fileID: 2100000, guid: 1fc0c4db38f579945a7d1acbee2c6f0a, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
@@ -189,39 +174,11 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties: []
-    clipAnimations:
-    - serializedVersion: 16
-      name: T
-      takeName: mixamo.com
-      firstFrame: 0
-      lastFrame: 1
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
+    clipAnimations: []
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 0.9
+    globalScale: 1
     meshCompression: 0
     addColliders: 0
     importVisibility: 1
@@ -241,7 +198,7 @@ ModelImporter:
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
-    previousCalculatedGlobalScale: 0.009
+    previousCalculatedGlobalScale: 0.01
     hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60
