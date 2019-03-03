@@ -21,8 +21,8 @@ public class Credits : MonoBehaviour {
 
     private void Update()
     {
-        if (!audioSource.isPlaying)
-            audioSource.Play();
+        //if (!audioSource.isPlaying)
+        //    audioSource.Play();
     }
 
     void Back_Menu()
