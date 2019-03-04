@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class AnyButton : MonoBehaviour {
 
+	public string Scene;
 	// Use this for initialization
 	void Start () {
 		
@@ -14,7 +15,7 @@ public class AnyButton : MonoBehaviour {
 	void Update () {
 		if(Input.anyKey){
 			//this.transform.parent.gameObject.SetActive(false);
-			SceneManager.LoadScene("Game 8 - New Design");
+			SceneManager.LoadScene(Scene);
 		}
 	}
 }

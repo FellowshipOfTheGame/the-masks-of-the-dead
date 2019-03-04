@@ -286,6 +286,7 @@ GameObject:
   - component: {fileID: 1019673110}
   - component: {fileID: 1019673109}
   - component: {fileID: 1019673108}
+  - component: {fileID: 1019673111}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -355,6 +356,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1019673111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1019673107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bfdaada26f0c1c4a97e46047cc514a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Scene: Game 8 - New Design
 --- !u!1 &1026519169
 GameObject:
   m_ObjectHideFlags: 0
@@ -619,6 +632,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bfdaada26f0c1c4a97e46047cc514a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Scene: 
 --- !u!1 &1984098211
 GameObject:
   m_ObjectHideFlags: 0
