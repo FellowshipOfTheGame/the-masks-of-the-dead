@@ -24,7 +24,7 @@ public class ActionScript : MonoBehaviour {
     Sprite icon_close;
     Sprite icon_pick;
     bool showing_icon = false;
-    bool quest_completed = false;
+    public bool quest_completed = false;
 
 
     void Action()

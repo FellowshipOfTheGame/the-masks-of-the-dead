@@ -14,15 +14,16 @@ public class Credits : MonoBehaviour {
 	void Start () {
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-        GameObject.Find("Canvas/Button").GetComponent<Button>().onClick.AddListener(Back_Menu);
+        //GameObject.Find("Canvas/Button").GetComponent<Button>().onClick.AddListener(Back_Menu);
 
         audioSource = GameObject.Find("Main Camera").GetComponent<AudioSource>();
 	}
 
     private void Update()
     {
-        //if (!audioSource.isPlaying)
-        //    audioSource.Play();
+        //if(Input.anyKey){
+		//	SceneManager.LoadScene("Starting Menu");
+		//}
     }
 
     void Back_Menu()
