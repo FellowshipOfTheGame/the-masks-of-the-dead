@@ -80,7 +80,7 @@ public class ActionScript : MonoBehaviour {
             }else if(object_gotten.tag == "Harpoon"){
                 if(quest_completed)
                 {
-                    anima.SetTrigger("BlackOut");
+                    SceneManager.LoadScene(next_scene, LoadSceneMode.Single);
                 }
                 if(!startedQuest){
                     Debug.Log("Startou a quest!");
