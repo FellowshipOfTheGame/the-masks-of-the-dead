@@ -16,6 +16,8 @@ public class ActionScript : MonoBehaviour {
 
     public string next_scene;
 
+    public Animator anima;
+
     GameObject icon;
     Sprite icon_use;
     Sprite icon_open;
@@ -23,6 +25,7 @@ public class ActionScript : MonoBehaviour {
     Sprite icon_pick;
     bool showing_icon = false;
     bool quest_completed = false;
+
 
     void Action()
     {
@@ -77,7 +80,7 @@ public class ActionScript : MonoBehaviour {
             }else if(object_gotten.tag == "Harpoon"){
                 if(quest_completed)
                 {
-                    SceneManager.LoadScene(next_scene, LoadSceneMode.Single);
+                    anima.SetTrigger("BlackOut");
                 }
                 if(!startedQuest){
                     Debug.Log("Startou a quest!");
