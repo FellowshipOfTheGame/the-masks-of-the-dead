@@ -8,6 +8,7 @@ public class Zombie : MonoBehaviour {
 	public GameObject player;
 	public GameObject camera;
 	public GameObject cameraDead;
+    public GameObject pathManager;
 
     public float cLowerDist = 1.4f;
     public float cBiggerDist = 1.8f;
@@ -16,6 +17,7 @@ public class Zombie : MonoBehaviour {
 
 	private float lowerDist;
 	private float biggerDist;
+    private List<No> Caminho;
 
 	public Material green;
 	public Material yellow;
@@ -53,98 +55,142 @@ public class Zombie : MonoBehaviour {
         starting_location = gameObject.transform.position;
         audioSource = GetComponent<AudioSource>();
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update() {
         //Detecta que distancia será usada (em pé, ou agaichado)
-        if(player.GetComponent<ThirdPersonCharacter>().m_Crouching)
+        if (player.GetComponent<ThirdPersonCharacter>().m_Crouching)
         {
             lowerDist = cLowerDist;
             biggerDist = cBiggerDist;
-        }else
+        } else
         {
             lowerDist = sLowerDist;
             biggerDist = sBiggerDist;
         }
 
         //Ajusta o som do grunhido do zumbi.
-        if(state == "yellow")
+        if (state == "yellow")
         {
-            if(!audioSource.isPlaying)
+            if (!audioSource.isPlaying)
             {
                 audioSource.Play();
             }
-            if(audioSource.volume < maxVolume)
+            if (audioSource.volume < maxVolume)
             {
                 audioSource.volume += changingSpeed * Time.deltaTime;
             }
-        }else
+        } else
         {
-            if(audioSource.isPlaying)
+            if (audioSource.isPlaying)
             {
-                if(audioSource.volume <= 0)
+                if (audioSource.volume <= 0)
                 {
                     audioSource.volume = 0;
                     audioSource.Stop();
-                }else
+                } else
                 {
                     audioSource.volume -= changingSpeed * Time.deltaTime;
                 }
             }
         }
 
-		howNear();
+        howNear();
 
-		if(isDead){
-			if(Input.GetKeyDown(KeyCode.Return)){
-				player.transform.SetPositionAndRotation(new Vector3(3.4f, 0f, -8.35f), Quaternion.Euler(new Vector3(0,90,0)));
+        if (isDead) {
+            if (Input.GetKeyDown(KeyCode.Return)) {
+                player.transform.SetPositionAndRotation(new Vector3(3.4f, 0f, -8.35f), Quaternion.Euler(new Vector3(0, 90, 0)));
                 camera.SetActive(true);
                 cameraDead.GetComponent<AudioListener>().enabled = false;
-        		camera.GetComponent<AudioListener>().enabled = true;
+                camera.GetComponent<AudioListener>().enabled = true;
                 cameraDead.SetActive(false);
-				/*camera.GetComponent<Camera>().enabled = true;
+                /*camera.GetComponent<Camera>().enabled = true;
 				cameraDead.GetComponent<Camera>().enabled = false;*/
-				cameraDead.transform.position = new Vector3(-10, 7, 10);
-				player.GetComponent<Animator>().enabled = true;
-				isDead = false;
+                cameraDead.transform.position = new Vector3(-10, 7, 10);
+                player.GetComponent<Animator>().enabled = true;
+                isDead = false;
 
-				this.transform.GetChild (0).gameObject.SetActive(true);
-				player.transform.GetChild (0).gameObject.GetComponent<AudioSource> ().pitch = 1.0f;
-			}
-		}
-        
-        //movimentação do zombie
-        if(destination.Length != 0)
+                this.transform.GetChild(0).gameObject.SetActive(true);
+                player.transform.GetChild(0).gameObject.GetComponent<AudioSource>().pitch = 1.0f;
+            }
+        }
+
+        if (!pathManager)
         {
-            if (is_waiting)
+            //movimentação do zombie
+            if (destination.Length != 0)
             {
-                wait(i);
-                //this.transform.GetChild (0).gameObject.GetComponent<Animator>().SetBool("Moving", false);
-                if(!is_waiting)
+                if (is_waiting)
                 {
+                    wait(i);
+                    //this.transform.GetChild (0).gameObject.GetComponent<Animator>().SetBool("Moving", false);
+                    if (!is_waiting)
+                    {
 
-                    if(i < destination.Length)
-                    {
-                        destiny = destination[i];
-                        i++;
+                        if (i < destination.Length)
+                        {
+                            destiny = destination[i];
+                            i++;
+                        }
+                        else
+                        {
+                            i = 0;
+                            destiny = destination[i];
+                        }
+                        time_waiting = 0;
+                        direction = (destiny - gameObject.transform.position).normalized;
                     }
-                    else
-                    {
-                        i = 0;
-                        destiny = starting_location;
-                    }
-                    time_waiting = 0;
-                    direction = (destiny - gameObject.transform.position).normalized;
                 }
-            }else
-            {
-            	//this.transform.GetChild (0).gameObject.GetComponent<Animator>().SetBool("Moving", true);
-                gameObject.transform.Translate(direction * speed * Time.deltaTime);
-                if ((gameObject.transform.position - destiny).sqrMagnitude <= (direction * speed * Time.deltaTime).sqrMagnitude)
+                else
                 {
+                    //this.transform.GetChild (0).gameObject.GetComponent<Animator>().SetBool("Moving", true);
+                    gameObject.transform.Translate(direction * speed * Time.deltaTime);
+                    if ((gameObject.transform.position - destiny).sqrMagnitude <= (direction * speed * Time.deltaTime).sqrMagnitude)
+                    {
 
-                    gameObject.transform.position = destiny;
-                    is_waiting = true;
+                        gameObject.transform.position = destiny;
+                        is_waiting = true;
+                    }
+                }
+            }
+        }
+        else
+        {
+            //movimentação do zombie
+            Caminho = pathManager.GetComponent<Grid>().Trilha;
+            if (Caminho.Count != 0)
+            {
+                if (is_waiting)
+                {
+                    wait(0);
+                    //this.transform.GetChild (0).gameObject.GetComponent<Animator>().SetBool("Moving", false);
+                    if (!is_waiting)
+                    {
+
+                        if (i < Caminho.Count)
+                        {
+                            destiny = Caminho[i].Posicao;
+                            i++;
+                        }
+                        else
+                        {
+                            i = 0;
+                            destiny = Caminho[i].Posicao;
+                        }
+                        time_waiting = 0;
+                        direction = (destiny - gameObject.transform.position).normalized;
+                    }
+                }
+                else
+                {
+                    //this.transform.GetChild (0).gameObject.GetComponent<Animator>().SetBool("Moving", true);
+                    gameObject.transform.Translate(direction * speed * Time.deltaTime);
+                    if ((gameObject.transform.position - destiny).sqrMagnitude <= (direction * speed * Time.deltaTime).sqrMagnitude)
+                    {
+
+                        gameObject.transform.position = destiny;
+                        is_waiting = true;
+                    }
                 }
             }
         }
