@@ -34,6 +34,7 @@ public class Zombie : MonoBehaviour {
     Vector3 starting_location;//Onde o zumbi inicia.
     Vector3 destiny;//O próximo destino do zumbi.
     int i = 0;//Posição do destino no vetor direction
+    int waypoint_index = 0; //Índice do vetor de possíveis destinos
     Vector3 direction;//Direção que o zumbi anda para chegar no destino.
     [Range(0.0f, 10.0f)] public float speed;
 
@@ -163,7 +164,7 @@ public class Zombie : MonoBehaviour {
                 if (is_waiting)
                 {
                     wait(0);
-                    //this.transform.GetChild (0).gameObject.GetComponent<Animator>().SetBool("Moving", false);
+
                     if (!is_waiting)
                     {
 
@@ -183,7 +184,6 @@ public class Zombie : MonoBehaviour {
                 }
                 else
                 {
-                    //this.transform.GetChild (0).gameObject.GetComponent<Animator>().SetBool("Moving", true);
                     gameObject.transform.Translate(direction * speed * Time.deltaTime);
                     if ((gameObject.transform.position - destiny).sqrMagnitude <= (direction * speed * Time.deltaTime).sqrMagnitude)
                     {
@@ -192,6 +192,20 @@ public class Zombie : MonoBehaviour {
                         is_waiting = true;
                     }
                 }
+            }
+            else
+            {
+                if (waypoint_index < destination.Length)
+                {
+                    pathManager.GetComponent<Pathfinding>().PosFinal.localPosition = destination[waypoint_index];
+                    waypoint_index++;
+                }
+                else
+                {
+                    waypoint_index = 0;
+                    pathManager.GetComponent<Pathfinding>().PosFinal.localPosition = destination[waypoint_index];
+                }
+                time_waiting = 0;
             }
         }
 	}
