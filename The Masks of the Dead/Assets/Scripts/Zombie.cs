@@ -38,7 +38,15 @@ public class Zombie : MonoBehaviour {
     Vector3 direction;//Direção que o zumbi anda para chegar no destino.
     [Range(0.0f, 10.0f)] public float speed;
 
-	private GameObject body;
+    private enum modo
+    {
+        PATRULHA,
+        PERSEGUINDO,
+        PROCURANDO
+    }
+
+    private modo estado;
+    private GameObject body;
 	private string state;
 
 	public bool isDead = false;
@@ -50,6 +58,7 @@ public class Zombie : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        estado = modo.PATRULHA;
 		Cursor.visible = false;
 		body = transform.GetChild(0).gameObject;
 		state = "green";
@@ -100,7 +109,7 @@ public class Zombie : MonoBehaviour {
 
         if (isDead) {
             if (Input.GetKeyDown(KeyCode.Return)) {
-                player.transform.SetPositionAndRotation(new Vector3(3.4f, 0f, -8.35f), Quaternion.Euler(new Vector3(0, 90, 0)));
+                player.transform.SetPositionAndRotation(new Vector3(-25f, 0f, 0f), Quaternion.Euler(new Vector3(0, 90, 0)));
                 camera.SetActive(true);
                 cameraDead.GetComponent<AudioListener>().enabled = false;
                 camera.GetComponent<AudioListener>().enabled = true;
@@ -114,6 +123,32 @@ public class Zombie : MonoBehaviour {
                 this.transform.GetChild(0).gameObject.SetActive(true);
                 player.transform.GetChild(0).gameObject.GetComponent<AudioSource>().pitch = 1.0f;
             }
+        }
+
+        if (GetComponent<Zombie_sight>().playerInSight)
+        {
+            if (estado != modo.PERSEGUINDO)
+            {
+                estado = modo.PERSEGUINDO;
+                pathManager.GetComponent<Pathfinding>().PosFinal.localPosition = player.transform.position;
+            }
+        }
+        else
+        {
+            if (estado == modo.PERSEGUINDO)
+            {
+                if (waypoint_index < destination.Length)
+                {
+                    pathManager.GetComponent<Pathfinding>().PosFinal.localPosition = destination[waypoint_index];
+                    waypoint_index++;
+                }
+                else
+                {
+                    waypoint_index = 0;
+                    pathManager.GetComponent<Pathfinding>().PosFinal.localPosition = destination[waypoint_index];
+                }
+            }
+                estado = modo.PATRULHA;
         }
 
         if (!pathManager)

@@ -14,14 +14,14 @@ public class Zombie_sight : MonoBehaviour {
     private Vector3 previousSighting;
 
 	void Awake () {
-        nav = GetComponent<Pathfinding>();
+        //nav = GetComponent<Pathfinding>();
         col = GetComponent<SphereCollider>();
         player = GameObject.FindGameObjectWithTag("Player");
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
+        previousSighting = personalLastSighting;
 	}
 
     private void OnTriggerStay(Collider other)
@@ -37,7 +37,7 @@ public class Zombie_sight : MonoBehaviour {
             {
                 RaycastHit Ray;
 
-                if(Physics.Raycast(transform.position + transform.up, direction.normalized, out Ray, col.radius))
+                if(Physics.Raycast(transform.position, direction.normalized, out Ray, col.radius))
                 {
                     if(Ray.collider.gameObject == player)
                     {
