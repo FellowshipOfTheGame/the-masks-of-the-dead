@@ -31,7 +31,7 @@ public class Zombie_sight : MonoBehaviour {
             playerInSight = false;
 
             Vector3 direction = other.transform.position - transform.position;
-            float angle = Vector3.Angle(direction, transform.forward);
+            float angle = Vector3.Angle(direction, GetComponent<Zombie>().getDirection());
 
             if(angle < fielOfVision * 0.5f)
             {

@@ -35,7 +35,7 @@ public class Zombie : MonoBehaviour {
     Vector3 destiny;//O próximo destino do zumbi.
     int i = 0;//Posição do destino no vetor direction
     int waypoint_index = 0; //Índice do vetor de possíveis destinos
-    Vector3 direction;//Direção que o zumbi anda para chegar no destino.
+    private Vector3 direction;//Direção que o zumbi anda para chegar no destino.
     [Range(0.0f, 10.0f)] public float speed;
 
     private enum modo
@@ -129,6 +129,8 @@ public class Zombie : MonoBehaviour {
         {
             if (estado != modo.PERSEGUINDO)
             {
+                speed = 4.0f;
+                GetComponent<Zombie_Animation>().animSpeed = 7.0f;
                 estado = modo.PERSEGUINDO;
                 pathManager.GetComponent<Pathfinding>().PosFinal.localPosition = player.transform.position;
             }
@@ -148,7 +150,9 @@ public class Zombie : MonoBehaviour {
                     pathManager.GetComponent<Pathfinding>().PosFinal.localPosition = destination[waypoint_index];
                 }
             }
-                estado = modo.PATRULHA;
+            estado = modo.PATRULHA;
+            speed = 2.1f;
+            GetComponent<Zombie_Animation>().animSpeed = 3.5f;
         }
 
         if (!pathManager)
@@ -307,5 +311,10 @@ public class Zombie : MonoBehaviour {
 		player.transform.GetChild (0).gameObject.GetComponent<AudioSource> ().pitch = 0.75f;
 		isDead = true;
 	}
+
+    public Vector3 getDirection()
+    {
+        return direction;
+    }
 
 }
