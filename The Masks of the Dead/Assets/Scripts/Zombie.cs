@@ -202,7 +202,8 @@ public class Zombie : MonoBehaviour {
             {
                 if (is_waiting)
                 {
-                    wait(0);
+                    //wait(0);
+                    is_waiting = false;
 
                     if (!is_waiting)
                     {
