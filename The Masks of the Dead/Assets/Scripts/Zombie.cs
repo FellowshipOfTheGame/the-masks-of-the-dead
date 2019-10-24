@@ -196,27 +196,32 @@ public class Zombie : MonoBehaviour {
         }
         else
         {
+
             //movimentação do zombie
-            Caminho = pathManager.GetComponent<Grid>().Trilha;
-            if (Caminho.Count != 0)
+            if (Caminho == null)
+            {
+                Caminho = pathManager.GetComponent<Grid>().Trilha;
+            }
+
+            if (Caminho.Count != 0 && i <= Caminho.Count)
             {
                 if (is_waiting)
                 {
-                    //wait(0);
+
                     is_waiting = false;
 
                     if (!is_waiting)
                     {
-
                         if (i < Caminho.Count)
                         {
                             destiny = Caminho[i].Posicao;
+                            //if (gameObject.transform.position == destiny)
                             i++;
                         }
                         else
                         {
-                            i = 0;
-                            destiny = Caminho[i].Posicao;
+                            is_waiting = true;
+                            i++;
                         }
                         time_waiting = 0;
                         direction = (destiny - gameObject.transform.position).normalized;
@@ -235,17 +240,27 @@ public class Zombie : MonoBehaviour {
             }
             else
             {
-                if (waypoint_index < destination.Length)
+                i = 0;
+                Caminho = pathManager.GetComponent<Grid>().Trilha;
+                if (is_waiting)
                 {
-                    pathManager.GetComponent<Pathfinding>().PosFinal.localPosition = destination[waypoint_index];
-                    waypoint_index++;
+                    wait(4);
                 }
                 else
                 {
-                    waypoint_index = 0;
-                    pathManager.GetComponent<Pathfinding>().PosFinal.localPosition = destination[waypoint_index];
+                    if (waypoint_index < destination.Length)
+                    {
+                        pathManager.GetComponent<Pathfinding>().PosFinal.localPosition = destination[waypoint_index];
+                        waypoint_index++;
+                    }
+                    else
+                    {
+                        waypoint_index = 0;
+                        pathManager.GetComponent<Pathfinding>().PosFinal.localPosition = destination[waypoint_index];
+                    }
+                    time_waiting = 0;
+                    is_waiting = true;
                 }
-                time_waiting = 0;
             }
         }
 	}
