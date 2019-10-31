@@ -52,6 +52,7 @@ public class Zombie : MonoBehaviour {
 	public bool isDead = false;
 
     public AudioClip grunhido;
+    public AudioClip grito;
     public float maxVolume = 1.0f;
     public float changingSpeed = 1.0f;
     private AudioSource audioSource;
@@ -80,7 +81,7 @@ public class Zombie : MonoBehaviour {
         }
 
         //Ajusta o som do grunhido do zumbi.
-        if (state == "yellow")
+        if (state == "yellow" || (estado == modo.PERSEGUINDO && state != "red"))
         {
             if (!audioSource.isPlaying)
             {
@@ -132,27 +133,25 @@ public class Zombie : MonoBehaviour {
                 speed = 4.0f;
                 GetComponent<Zombie_Animation>().animSpeed = 7.0f;
                 estado = modo.PERSEGUINDO;
+                audioSource.clip = grito;
                 pathManager.GetComponent<Pathfinding>().PosFinal.localPosition = player.transform.position;
+                //if (!audioSource.isPlaying)
+                //{
+                audioSource.volume = 1.0f;
+                audioSource.Play();
+                //}
             }
         }
         else
         {
             if (estado == modo.PERSEGUINDO)
             {
-                if (waypoint_index < destination.Length)
-                {
-                    pathManager.GetComponent<Pathfinding>().PosFinal.localPosition = destination[waypoint_index];
-                    waypoint_index++;
-                }
-                else
-                {
-                    waypoint_index = 0;
-                    pathManager.GetComponent<Pathfinding>().PosFinal.localPosition = destination[waypoint_index];
-                }
+                pathManager.GetComponent<Pathfinding>().PosFinal.localPosition = GetComponent<Zombie_sight>().personalLastSighting;
+                audioSource.clip = grunhido;
+                estado = modo.PATRULHA;
+                speed = 2.1f;
+                GetComponent<Zombie_Animation>().animSpeed = 3.5f;
             }
-            estado = modo.PATRULHA;
-            speed = 2.1f;
-            GetComponent<Zombie_Animation>().animSpeed = 3.5f;
         }
 
         if (!pathManager)
@@ -198,7 +197,7 @@ public class Zombie : MonoBehaviour {
         {
 
             //movimentação do zombie
-            if (Caminho == null)
+            if (Caminho == null || estado == modo.PERSEGUINDO || estado == modo.PATRULHA)
             {
                 Caminho = pathManager.GetComponent<Grid>().Trilha;
             }
@@ -230,7 +229,7 @@ public class Zombie : MonoBehaviour {
                 else
                 {
                     gameObject.transform.Translate(direction * speed * Time.deltaTime);
-                    if ((gameObject.transform.position - destiny).sqrMagnitude <= (direction * speed * Time.deltaTime).sqrMagnitude)
+                    if ((gameObject.transform.position - destiny).sqrMagnitude <= 0.025f/*(direction * speed * Time.deltaTime).sqrMagnitude*/)
                     {
 
                         gameObject.transform.position = destiny;
@@ -240,14 +239,16 @@ public class Zombie : MonoBehaviour {
             }
             else
             {
-                i = 0;
-                Caminho = pathManager.GetComponent<Grid>().Trilha;
                 if (is_waiting)
                 {
                     wait(4);
                 }
                 else
                 {
+                    if (estado == modo.PATRULHA)
+                        estado = modo.PROCURANDO;
+                    i = 0;
+                    Caminho = pathManager.GetComponent<Grid>().Trilha;
                     if (waypoint_index < destination.Length)
                     {
                         pathManager.GetComponent<Pathfinding>().PosFinal.localPosition = destination[waypoint_index];
