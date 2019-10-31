@@ -12,11 +12,15 @@ public class Zombie_Animation : MonoBehaviour {
     private GameObject zombieModel;
     private Animator anim;
 
+    private float time_stopped;
+
     // Use this for initialization
     void Start () {
         zombieModel = gameObject.transform.GetChild(0).gameObject;
 
         anim = zombieModel.GetComponent<Animator>();
+
+        time_stopped = 0;
     }
     
     // Update is called once per frame
@@ -35,8 +39,13 @@ public class Zombie_Animation : MonoBehaviour {
             anim.speed = animSpeed;
         }else
         {
-            anim.SetBool("Moving", false);
-            anim.speed = 1.0f;
+            if (time_stopped > 0.4f)
+            {
+                anim.SetBool("Moving", false);
+                anim.speed = 1.0f;
+                time_stopped = 0;
+            }
+            time_stopped += Time.deltaTime;
         }
         previousPosition = currentPosition;
     }
