@@ -9,6 +9,8 @@ public class Individuo<T> {
 
     private Random random;
     private Func<T> GeraGeneAleatorio;
+    private int pontos;
+    private int nosPercorridos;
     Func<int, float> FuncaoFitness;
 
     public Individuo(int tamanho, Random random, Func<T> GeraGeneAleatorio, Func<int, float> FuncaoFitness, bool Inicializa = true)
@@ -17,6 +19,8 @@ public class Individuo<T> {
         this.random = random;
         this.GeraGeneAleatorio = GeraGeneAleatorio;
         this.FuncaoFitness = FuncaoFitness;
+        pontos = 0;
+        nosPercorridos = 0;
 
         if (Inicializa)
         {
@@ -54,5 +58,15 @@ public class Individuo<T> {
                 Genes[i] = GeraGeneAleatorio();
             }
         }
+    }
+
+    public void Pontua()
+    {
+        pontos++;
+    }
+
+    public void PercorreuNos(int num_nos)
+    {
+        nosPercorridos += num_nos;
     }
 }

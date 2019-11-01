@@ -105,6 +105,11 @@ public class Grid : MonoBehaviour {
                     Gizmos.color = Color.yellow;
                 }
 
+                if (n.Visitado)
+                {
+                    Gizmos.color = Color.blue;
+                }
+
                 if (Trilha != null)
                 {
                     if (Trilha.Contains(n))

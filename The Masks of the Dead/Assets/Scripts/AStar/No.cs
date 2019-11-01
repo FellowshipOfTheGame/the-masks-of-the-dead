@@ -8,6 +8,7 @@ public class No {
     public int Y_Gride;
 
     public bool Obstruido;
+    public bool Visitado;
     public Vector3 Posicao;
 
     public int hCusto;
@@ -24,6 +25,7 @@ public class No {
         Posicao = arg_Pos;
         X_Gride = arg_XGride;
         Y_Gride = arg_YGride;
+        Visitado = false;
     }
 
 }
