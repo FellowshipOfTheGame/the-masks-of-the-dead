@@ -12,12 +12,14 @@ public class AG<T> {
     private Random random;
     private float SomaFitness;
 
-    public AG(int tamanhoPopulacao, int individuoTamanho, Random random, Func<T> GeraGeneAleatorio, Func<float, int> FuncaoFitness, float taxaMutacao = 0.01f)
+    public AG(int tamanhoPopulacao, int individuoTamanho, Random random, Func<T> GeraGeneAleatorio, Func<int, float> FuncaoFitness, float taxaMutacao = 0.01f)
     {
         Geracao = 1;
         TaxaMutacao = taxaMutacao;
         Populacao = new List<Individuo<T>>();
         this.random = random;
+
+        MelhorGene = new T[individuoTamanho];
 
         for(int i = 0; i < tamanhoPopulacao; i++)
         {

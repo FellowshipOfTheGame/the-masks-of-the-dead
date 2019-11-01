@@ -9,9 +9,9 @@ public class Individuo<T> {
 
     private Random random;
     private Func<T> GeraGeneAleatorio;
-    Func<float, int> FuncaoFitness;
+    Func<int, float> FuncaoFitness;
 
-    public Individuo(int tamanho, Random random, Func<T> GeraGeneAleatorio, Func<float, int> FuncaoFitness, bool Inicializa = true)
+    public Individuo(int tamanho, Random random, Func<T> GeraGeneAleatorio, Func<int, float> FuncaoFitness, bool Inicializa = true)
     {
         Genes = new T[tamanho];
         this.random = random;
