@@ -32,10 +32,10 @@ public class Zombie : MonoBehaviour {
     bool is_waiting = true;
     float time_waiting = 0.0f;
     Vector3 starting_location;//Onde o zumbi inicia.
-    Vector3 destiny;//O próximo destino do zumbi.
-    int i = 0;//Posição do destino no vetor direction
-    int waypoint_index = 0; //Índice do vetor de possíveis destinos
-    private Vector3 direction;//Direção que o zumbi anda para chegar no destino.
+    Vector3 destiny;//O prï¿½ximo destino do zumbi.
+    int i = 0;//Posiï¿½ï¿½o do destino no vetor direction
+    int waypoint_index = 0; //ï¿½ndice do vetor de possï¿½veis destinos
+    private Vector3 direction;//Direï¿½ï¿½o que o zumbi anda para chegar no destino.
     [Range(0.0f, 10.0f)] public float speed;
 
     private enum modo
@@ -69,7 +69,7 @@ public class Zombie : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        //Detecta que distancia será usada (em pé, ou agaichado)
+        //Detecta que distancia serï¿½ usada (em pï¿½, ou agaichado)
         if (player.GetComponent<ThirdPersonCharacter>().m_Crouching)
         {
             lowerDist = cLowerDist;
@@ -156,7 +156,7 @@ public class Zombie : MonoBehaviour {
 
         if (!pathManager)
         {
-            //movimentação do zombie
+            //movimentaï¿½ï¿½o do zombie
             if (destination.Length != 0)
             {
                 if (is_waiting)
@@ -196,7 +196,7 @@ public class Zombie : MonoBehaviour {
         else
         {
 
-            //movimentação do zombie
+            //movimentaï¿½ï¿½o do zombie
             if (Caminho == null || estado == modo.PERSEGUINDO || estado == modo.PATRULHA)
             {
                 Caminho = pathManager.GetComponent<Grid>().Trilha;
