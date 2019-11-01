@@ -7,6 +7,7 @@ public class Pathfinding : MonoBehaviour {
     Grid gride;
     public Transform PosInicial;
     public Transform PosFinal;
+    public GameObject player;
 
     private void Awake()
     {
@@ -16,6 +17,7 @@ public class Pathfinding : MonoBehaviour {
     private void Update()
     {
         EncontraCaminho(PosInicial.position, PosFinal.position);
+        gride.VisitaNo(player.transform.position);
     }
 
     void EncontraCaminho (Vector3 arg_PosInicial, Vector3 arg_PosFinal)

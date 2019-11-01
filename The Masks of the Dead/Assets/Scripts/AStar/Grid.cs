@@ -28,7 +28,7 @@ public class Grid : MonoBehaviour {
     {
         gride = new No[TamanhoGride_x, TamanhoGride_y];
         Vector3 bottomLeft = transform.position - Vector3.right * Tamanho_gride.x / 2 - Vector3.forward * Tamanho_gride.y / 2;
-        for(int x = 0; x < TamanhoGride_x; x++)
+        for (int x = 0; x < TamanhoGride_x; x++)
         {
             for (int y = 0; y < TamanhoGride_y; y++)
             {
@@ -59,10 +59,10 @@ public class Grid : MonoBehaviour {
         return gride[x, y];
     }
 
-    public List<No> GetNosVizinhos (No arg_No)
+    public List<No> GetNosVizinhos(No arg_No)
     {
 
-        List<No> NosVizinhos = new List<No> ();
+        List<No> NosVizinhos = new List<No>();
         int xCheck;
         int yCheck;
 
@@ -123,4 +123,16 @@ public class Grid : MonoBehaviour {
         }
     }
 
+    public void limpaNos()
+    {
+        foreach (No n in gride)
+        {
+            n.Visitado = false;
+        }
+    }
+
+    public void VisitaNo(Vector3 arg_PosicaoMundo)
+    {
+        PosicaoNoMundo(arg_PosicaoMundo).Visitado = true;
+    }
 }
