@@ -87,6 +87,6 @@ public class AG<T> {
             Aleatoriedade -= Populacao[i].Fitness;
         }
 
-        return null;
+        return Populacao[random.Next(Populacao.Count - 1)];
     }
 }

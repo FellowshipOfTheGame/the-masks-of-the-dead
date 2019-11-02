@@ -157,6 +157,7 @@ public class AGZombie : MonoBehaviour {
                 audioSource.volume = 1.0f;
                 audioSource.Play();
                 //}
+                individuo.Pontua(10);
             }
         }
         else
@@ -232,6 +233,10 @@ public class AGZombie : MonoBehaviour {
                         {
                             destiny = Caminho[i].Posicao;
                             //if (gameObject.transform.position == destiny)
+                            if (pathManager.GetComponent<Pathfinding>().Pontuacao(destiny))
+                            {
+                                individuo.Pontua(1);
+                            }
                             i++;
                         }
                         else
@@ -264,6 +269,7 @@ public class AGZombie : MonoBehaviour {
                 {
                     if (estado == modo.PATRULHA)
                         estado = modo.PROCURANDO;
+                    individuo.PercorreuNos(i);
                     i = 0;
                     Caminho = pathManager.GetComponent<Grid>().Trilha;
                     if (waypoint_index < destination.Length)
@@ -276,6 +282,11 @@ public class AGZombie : MonoBehaviour {
                         if(individuoIndex == 0)
                         {
                             AGManager.avisoAvaliacao();
+                            AGManager.getAG().Populacao[4] = individuo;
+                        }
+                        else
+                        {
+                            AGManager.getAG().Populacao[individuoIndex - 1] = individuo;
                         }
                         testando = false;
                         waypoint_index = 0;
@@ -286,6 +297,7 @@ public class AGZombie : MonoBehaviour {
                 }
             }
         }
+        print(individuoIndex);
 	}
 
     void wait(int i)

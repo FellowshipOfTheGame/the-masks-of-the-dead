@@ -95,4 +95,9 @@ public class Pathfinding : MonoBehaviour {
 
         return ix + iy;
     }
+
+    public bool Pontuacao(Vector3 pos)
+    {
+        return gride.PosicaoNoMundo(pos).Visitado;
+    }
 }

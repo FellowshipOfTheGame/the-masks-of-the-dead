@@ -20,9 +20,11 @@ public class Manager : MonoBehaviour {
 	}
 	
 	void Update () {
+        print("Update " + TodosAvaliados);
         //if todos receberam fitness
         if (TodosAvaliados)
         {
+            print("Evoluindo...");
             ag.NovaGeracao();
             TodosAvaliados = false;
         }
@@ -36,8 +38,7 @@ public class Manager : MonoBehaviour {
 
     private float FuncaoFitness(int index)
     {
-        // Desenvolver lógica específica aqui
-        return 0;
+        return (ag.Populacao[index].getPontos()/(ag.Populacao[index].getTamanhoCaminho() != 0 ? ag.Populacao[index].getTamanhoCaminho() : 10000));
     }
 
     public AG<float> getAG()
@@ -47,6 +48,6 @@ public class Manager : MonoBehaviour {
 
     public void avisoAvaliacao()
     {
-        TodosAvaliados = true;
+        this.TodosAvaliados = true;
     }
 }

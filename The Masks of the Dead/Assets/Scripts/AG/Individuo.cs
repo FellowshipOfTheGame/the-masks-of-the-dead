@@ -60,13 +60,23 @@ public class Individuo<T> {
         }
     }
 
-    public void Pontua()
+    public void Pontua(int pontos)
     {
-        pontos++;
+        pontos += pontos;
     }
 
     public void PercorreuNos(int num_nos)
     {
         nosPercorridos += num_nos;
+    }
+
+    public int getPontos()
+    {
+        return pontos;
+    }
+
+    public int getTamanhoCaminho()
+    {
+        return nosPercorridos;
     }
 }
