@@ -13,11 +13,11 @@ public class No {
 
     public int hCusto;
     public int gCusto;
- // public int pCusto;
+    public int pCusto;
 
     public No Pai;
 
-    public int fCusto { get { return hCusto + gCusto; } }
+    public int fCusto { get { return hCusto + gCusto - pCusto; } }
 
     public No (bool arg_Obs, Vector3 arg_Pos, int arg_XGride, int arg_YGride)
     {
@@ -25,6 +25,7 @@ public class No {
         Posicao = arg_Pos;
         X_Gride = arg_XGride;
         Y_Gride = arg_YGride;
+        pCusto = 0;
         Visitado = false;
     }
 

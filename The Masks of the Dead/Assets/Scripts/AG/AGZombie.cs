@@ -51,7 +51,7 @@ public class AGZombie : MonoBehaviour {
 	private string state;
     private int individuoIndex;
     private bool testando;
-    private Individuo<float> individuo;
+    private Individuo<int> individuo;
 
 	public bool isDead = false;
 
@@ -78,6 +78,7 @@ public class AGZombie : MonoBehaviour {
         if (!testando)
         {
             individuo = AGManager.getAG().Populacao[individuoIndex];
+            pathManager.GetComponent<Grid>().AplicaHeuristica(individuo.Genes);
             testando = true;
             individuoIndex++;
             if(individuoIndex >= AGManager.getAG().Populacao.Count)
@@ -283,6 +284,7 @@ public class AGZombie : MonoBehaviour {
                         {
                             AGManager.avisoAvaliacao();
                             AGManager.getAG().Populacao[4] = individuo;
+                            pathManager.GetComponent<Grid>().limpaNos();
                         }
                         else
                         {
@@ -297,7 +299,6 @@ public class AGZombie : MonoBehaviour {
                 }
             }
         }
-        print(individuoIndex);
 	}
 
     void wait(int i)

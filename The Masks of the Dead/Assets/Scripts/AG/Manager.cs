@@ -5,22 +5,21 @@ using UnityEngine;
 public class Manager : MonoBehaviour {
 
     [Header("Parametros geneticos")]
-    [SerializeField] int maxHeuristica = 2500;
+    [SerializeField] int maxHeuristica = 25;
     [SerializeField] int tamanhoPopulacao = 5;
     [SerializeField] float taxaMutacao = 0.10f;
 
-    private AG<float> ag;
+    private AG<int> ag;
     private System.Random random;
     private bool TodosAvaliados;
 
 	void Awake () {
         random = new System.Random();
-        ag = new AG<float>(tamanhoPopulacao, 60 * 25/*Tamanho grid*/, random, GeraHeuristica, FuncaoFitness, taxaMutacao);
+        ag = new AG<int>(tamanhoPopulacao, 60 * 25/*Tamanho grid*/, random, GeraHeuristica, FuncaoFitness, taxaMutacao);
         TodosAvaliados = false;
 	}
 	
 	void Update () {
-        print("Update " + TodosAvaliados);
         //if todos receberam fitness
         if (TodosAvaliados)
         {
@@ -30,9 +29,9 @@ public class Manager : MonoBehaviour {
         }
 	}
 
-    private float GeraHeuristica()
+    private int GeraHeuristica()
     {
-        float valor = random.Next(maxHeuristica)/100;
+        int valor = random.Next(maxHeuristica);
         return valor;
     }
 
@@ -41,7 +40,7 @@ public class Manager : MonoBehaviour {
         return (ag.Populacao[index].getPontos()/(ag.Populacao[index].getTamanhoCaminho() != 0 ? ag.Populacao[index].getTamanhoCaminho() : 10000));
     }
 
-    public AG<float> getAG()
+    public AG<int> getAG()
     {
         return ag;
     }

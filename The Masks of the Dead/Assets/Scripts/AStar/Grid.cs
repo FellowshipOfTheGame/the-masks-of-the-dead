@@ -135,4 +135,18 @@ public class Grid : MonoBehaviour {
     {
         PosicaoNoMundo(arg_PosicaoMundo).Visitado = true;
     }
+
+    public void AplicaHeuristica(int[] valores)
+    {
+        for (int i = 0; i < Tamanho_gride.x; i++)
+        {
+            for (int j = 0; j < Tamanho_gride.y; j++)
+            {
+                //print(i * 25 + j);
+                //print(i);
+                //print(j);
+                gride[i, j].pCusto = valores[i * 25 + j];
+            }
+        }
+    }
 }
